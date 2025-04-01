@@ -1,0 +1,142 @@
+---
+
+data:
+  - name: datasets_path
+    type: folder
+    path: "Data/H264/MoreData"
+  - name: positives
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/good.csv"
+    exists: True
+  - name: negatives
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/bad.csv"
+    exists: True
+  - name: halfs
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/half.csv"
+    exists: True
+  - name: result_path
+    type: folder
+    path: "results/MoreHalfs-noKick"
+  - name: pp_analysis
+    type: folder
+    path: "{result_path}/pp_analysis"
+  - name: model_analysis
+    type: folder
+    path: "{result_path}/model_analysis"
+  - name: checkpoint_path
+    type: folder
+    path: "{result_path}/ckpt"
+  - name: tensorboard_path
+    type: folder
+    path: "{checkpoint_path}/tensorboard"
+  - name: csv_path
+    type: folder
+    path: "{checkpoint_path}/csv"
+  - name: pkl_path
+    type: folder
+    path: "{result_path}/pkl"
+  - name: log_path
+    type: folder
+    path: "{result_path}/log"
+  - name: log_file
+    type: file
+    path: "{log_path}/logs.log"
+    exists: False
+environment_settings:
+  - rng: 8
+    tf_rng: 8
+data_pre_processing:
+  - object: "MoreHalfs_Data2"
+    override: False
+    limit: 28
+    drop_features: ['bytes', 'pkts_order', 'mp2t_disorder_0x00000000', 'mp2t_disorder_0x00000011']
+callBacks_settings:
+  - swap_cb:
+      function: "switch"
+      epoch_limit: 10000
+  - EarlyStopping:
+      patience: 50
+      min_delta: 0.000005
+      restore_best_weights: True
+  - ModelCheckpoint:
+      save_weights_only: True,
+      save_freq: 20
+metrics_settings:
+  - functions:
+      distance_accuracy:
+        margin: 0.5
+loss_settings:
+  - loss_functions:
+      multiFunctionWeighted:
+        p_functions:
+          - name: pow
+            power: 2
+        n_functions:
+          - name: reciprocal
+            mul: 0.5
+        p_weights: [1.0]
+        n_weights: [1.0]
+      multiFunctionWeightedKick:
+        p_functions:
+          - name: pow
+            power: 2
+        n_functions:
+          - name: reciprocal
+            mul: 0.5
+        p_weights: [1.0]
+        n_weights: [1.0]
+        kick_strength: 10.
+model_settings:
+  - activation: "relu"
+    shape: (28, 8, )
+    n_nodes: 128
+    adam: 0.0001
+experiment_settings:
+  - train_dataset_portion: 0.8
+    val_dataset_portion: 0.1
+    window_size: 28
+    features: 8
+    vmaf_threshold: 90
+    input_dataset: "MoreHalfs_Data2"
+    epochs: 800
+    appendix: "MoreHalfs-noKick-rng8"
+    batch_size: 10
+    exp_vmaf_flag: True
+    verbose: 0
+plot_conf:
+  - plot_format: "png"
+    history_xlim: (5, None)
+    history_ylim: (None, 20)
+    plot_features:
+      - "packets"
+      - "bytes"
+      - "avg_timeDelta"
+      - "std_timeDelta"
+      - "skw_timeDelta"
+      - "kur_timeDelta"
+      - "pkts_order"
+      - "mp2t_disorder_0x00000064"
+      - "mp2t_disorder_0x000000c8"
+      - "mp2t_disorder_0x00000000"
+      - "mp2t_disorder_0x00000020"
+      - "mp2t_disorder_0x00000011"
+      - "vmaf"
+      - "vmafXsecond"
+    network_plot_features:
+      - "packets"
+      - "bytes"
+      - "avg_timeDelta"
+      - "std_timeDelta"
+      - "skw_timeDelta"
+      - "kur_timeDelta"
+      - "pkts_order"
+      - "mp2t_disorder_0x00000064"
+      - "mp2t_disorder_0x000000c8"
+      - "mp2t_disorder_0x00000000"
+      - "mp2t_disorder_0x00000020"
+      - "mp2t_disorder_0x00000011"

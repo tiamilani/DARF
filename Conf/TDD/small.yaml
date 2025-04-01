@@ -1,0 +1,159 @@
+---
+
+data:
+  - name: datasets_path
+    type: folder
+    path: "Data/TDD"
+  - name: positives
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/good.csv"
+    exists: True
+  - name: negatives
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/bad.csv"
+    exists: True
+  - name: halfs
+    type: file
+    subtype: input_data
+    path: "{datasets_path}/half.csv"
+    exists: True
+  - name: result_path
+    type: folder
+    path: "results/TDD"
+  - name: checkpoint_path
+    type: folder
+    path: "{result_path}/ckpt"
+  - name: tensorboard_path
+    type: folder
+    path: "{checkpoint_path}/tensorboard"
+  - name: csv_path
+    type: folder
+    path: "{checkpoint_path}/csv"
+  - name: pkl_path
+    type: folder
+    path: "{result_path}/pkl"
+  - name: log_path
+    type: folder
+    path: "{result_path}/log"
+  - name: log_file
+    type: file
+    path: "{log_path}/logs.log"
+    exists: False
+environment_settings:
+  - rng: 2
+    tf_rng: 2
+data_pre_processing:
+  - object: "test_data"
+    override: False
+    limit: 28
+    drop_features: ['bytes', 'pkts_order', 'mp2t_disorder_0x00000000', 'mp2t_disorder_0x00000011']
+data_proportioning:
+  - consideration:
+      train:
+        halfs: 1.
+        negatives: 1.
+        positives: 1.
+      validation:
+        halfs: 1.
+        negatives: 1.
+        positives: 1.
+      test:
+        halfs: 1.
+        negatives: 1.
+        positives: 1.
+  - balancing:
+      train:
+        p_presence: 0.5
+        n_presence: 0.5
+      validation:
+        p_presence: 0.5
+        n_presence: 0.5
+      test:
+        p_presence: 0.5
+        n_presence: 0.5
+callBacks_settings:
+  - swap_cb:
+      function: "switch"
+      epoch_limit: 10000
+  - EarlyStopping:
+      patience: 50
+      min_delta: 0.000005
+      restore_best_weights: True
+  - ModelCheckpoint:
+      save_weights_only: True,
+      save_freq: 20
+metrics_settings:
+  - functions:
+      distance_accuracy:
+        margin: 0.5
+loss_settings:
+  - loss_functions:
+      multiFunctionWeighted:
+        p_functions:
+          - name: pow
+            power: 2
+        n_functions:
+          - name: reciprocal
+            mul: 0.5
+        p_weights: [1.0]
+        n_weights: [1.0]
+      multiFunctionWeightedKick:
+        p_functions:
+          - name: pow
+            power: 2
+        n_functions:
+          - name: reciprocal
+            mul: 0.5
+        p_weights: [1.0]
+        n_weights: [1.0]
+        kick_strength: 10.
+model_settings:
+  - activation: "relu"
+    shape: (28, 12, )
+    n_nodes: 128
+    adam: 0.0001
+experiment_settings:
+  - train_portion: 0.8
+    val_portion: 0.1
+    window_size: 28
+    features: 12
+    vmaf_threshold: 90.
+    input_dataset: "MoreHalfs_Data2"
+    epochs: 80
+    appendix: "moreData-testGroups-w28"
+    batch_size: 1
+    vmaf_flag: True
+    verbose: 1
+plot_conf:
+  - plot_format: "png"
+    plot_features:
+      - "packets"
+      - "bytes"
+      - "avg_timeDelta"
+      - "std_timeDelta"
+      - "skw_timeDelta"
+      - "kur_timeDelta"
+      - "pkts_order"
+      - "mp2t_disorder_0x00000064"
+      - "mp2t_disorder_0x000000c8"
+      - "mp2t_disorder_0x00000000"
+      - "mp2t_disorder_0x00000020"
+      - "mp2t_disorder_0x00000011"
+      - "vmaf"
+      - "vmafXsecond"
+    network_plot_features:
+      - "packets"
+      - "bytes"
+      - "avg_timeDelta"
+      - "std_timeDelta"
+      - "skw_timeDelta"
+      - "kur_timeDelta"
+      - "pkts_order"
+      - "mp2t_disorder_0x00000064"
+      - "mp2t_disorder_0x000000c8"
+      - "mp2t_disorder_0x00000000"
+      - "mp2t_disorder_0x00000020"
+      - "mp2t_disorder_0x00000011"
+
