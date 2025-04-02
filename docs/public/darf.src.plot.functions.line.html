@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>darf.src.plot.functions.line module &mdash; SeaCoral 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SeaCoral
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CLIusage.html">CLI Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIusage.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Customization.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Dataset</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Dataset.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetOperations.html">Dataset Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetForking.html">Dataset Forking</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Plot.html">Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlotLevelCustomization.html">Plot level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FigureLevelCustomization.html">Figure level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserDefinedFunctions.html">User Defined Plot Functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentGuidelines.html">Development Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">darf</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SeaCoral</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">darf.src.plot.functions.line module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/darf.src.plot.functions.line.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-darf.src.plot.functions.line">
+<span id="darf-src-plot-functions-line-module"></span><h1>darf.src.plot.functions.line module<a class="headerlink" href="#module-darf.src.plot.functions.line" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="darf.src.plot.functions.line.line_double_y_axis">
+<span class="sig-prename descclassname"><span class="pre">darf.src.plot.functions.line.</span></span><span class="sig-name descname"><span class="pre">line_double_y_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_1_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_2_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Axes</span></span></span><a class="headerlink" href="#darf.src.plot.functions.line.line_double_y_axis" title="Link to this definition"></a></dt>
+<dd><p>line_double_y_axis.</p>
+<p>Apply a line plot with double y axis</p>
+<p>Both kwargs must be provided otherwise an expection is raised</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – The input data</p></li>
+<li><p><strong>yaxis_1_kwargs</strong> (<em>dict</em>) – The first y axis kwargs</p></li>
+<li><p><strong>yaxis_2_kwargs</strong> (<em>dict</em>) – The second y axis kwargs</p></li>
+<li><p><strong>kwargs</strong> – kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Current axes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mplt.axes.Axes</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If one of the yaxis kwargs is missing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Mattia Milani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
