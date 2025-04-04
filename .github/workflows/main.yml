@@ -35,7 +35,7 @@ jobs:
           echo "Pylint score: $score" > pylint_score.md
 
       - name: Upload Pylint Score
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pylint-score
           path: pylint_score.md
@@ -65,7 +65,7 @@ jobs:
           sphinx-build -b html docs/source docs/public
 
       - name: Upload Documentation
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: docs/public
