@@ -7,4 +7,4 @@ Python3.11 library to generate plots easily.
 
 ## Code Quality
 
-Pylint Score: ...
+Pylint Score: 6.03
