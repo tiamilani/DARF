@@ -1,4 +1,4 @@
-SeaCoral framework documentation!
+DARF framework documentation!
 =================================
 
 This framweork can be used to plot datasets in pythong without repeating

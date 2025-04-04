@@ -6,7 +6,6 @@ certifi==2025.1.31
 charset-normalizer==3.4.1
 contourpy==1.3.1
 cycler==0.12.1
--e git+ssh://git@github.com/nokia/DARF.git@a07c0ebe610c57b1bb3f54784739ff1c84bf80f3#egg=DARF
 docutils==0.21.2
 flatbuffers==25.2.10
 fonttools==4.56.0
@@ -52,7 +51,7 @@ scipy==1.15.2
 seaborn==0.13.2
 six==1.17.0
 snowballstemmer==2.2.0
-Sphinx==8.2.3
+Sphinx==8.1.3
 sphinx-rtd-theme==3.0.2
 sphinxcontrib-applehelp==2.0.0
 sphinxcontrib-devhelp==2.0.0

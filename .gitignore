@@ -140,3 +140,5 @@ ignore/
 *.zip
 *.pdf
 plot/**/*
+.vscode/**/*
+10env/**/*

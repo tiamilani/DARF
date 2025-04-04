@@ -12,13 +12,13 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../seacoral'))
+sys.path.insert(0, os.path.abspath('../../darf'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'SeaCoral'
-copyright = '2024, Mattia Milani'
+project = 'DARF'
+copyright = '© 2025 Nokia'
 author = 'Mattia Milani'
 
 # The full version, including alpha/beta/rc tags

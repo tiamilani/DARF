@@ -1,0 +1,71 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  static-analysis:
+    name: Static Analysis with Pylint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install virtualenv pylint
+          virtualenv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run Pylint
+        run: |
+          find plotter/ -type f -name "*.py" | xargs pylint --exit-zero | tee pylint.txt
+          score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
+          echo "Pylint score was $score"
+          echo "Pylint score: $score" > pylint_score.md
+
+      - name: Upload Pylint Score
+        uses: actions/upload-artifact@v3
+        with:
+          name: pylint-score
+          path: pylint_score.md
+
+  documentation:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m pip install -e .
+
+      - name: Build Sphinx Documentation
+        run: |
+          sphinx-apidoc -f -e -o docs/source plotter/
+          sphinx-build -b html docs/source docs/public
+
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: docs/public
