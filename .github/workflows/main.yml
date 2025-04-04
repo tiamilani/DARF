@@ -40,6 +40,20 @@ jobs:
           name: pylint-score
           path: pylint_score.md
 
+      - name: Update README with Pylint Score
+        run: |
+          score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
+          sed -i "s|Pylint Score: .*|Pylint Score: $score|" README.md
+
+      - name: Commit and Push Changes
+        if: success()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update Pylint score in README [skip ci]"
+          git push
+
   documentation:
     name: Build Documentation
     runs-on: ubuntu-latest
@@ -69,3 +83,20 @@ jobs:
         with:
           name: documentation
           path: public
+
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: documentation
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
