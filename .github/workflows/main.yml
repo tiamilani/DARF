@@ -46,10 +46,21 @@ jobs:
           name: pylint-score
           path: pylint_score.md
 
-      - name: Update README with Pylint Score
+      - name: Generate Pylint Badge
         run: |
-          score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
-          sed -i "s|Pylint Score: .*|Pylint Score: $score|" README.md
+          score=$(cat pylint_score.txt)
+          color="red"
+          if (( $(echo "$score >= 8.0" | bc -l) )); then
+            color="green"
+          elif (( $(echo "$score >= 5.0" | bc -l) )); then
+            color="yellow"
+          fi
+          echo "![Pylint Score](https://img.shields.io/badge/Pylint-$score-$color)" > pylint_badge.md
+
+      - name: Update README with Pylint Badge
+        run: |
+          badge=$(cat pylint_badge.md)
+          sed -i "1s|^|$badge\n\n|" README.md
 
       - name: Commit and Push Changes
         if: success()
