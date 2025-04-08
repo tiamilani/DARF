@@ -10,3 +10,4 @@ from .load_local import Local
 from .load_online import Online
 from .load_pkl import *
 from .load_dependent import Dependent, Copy, Join
+from .load_remote import Remote

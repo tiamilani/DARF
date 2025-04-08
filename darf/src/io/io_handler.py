@@ -19,6 +19,7 @@ import pkg_resources
 from darf.src.util.strings import s
 from .files import FileHandler as fh
 from .directories import DirectoryHandler as dh
+from .remote import RemoteHandler as rh
 from .configuration import ConfHandler as CH
 from .command_interpolation import fn as cm_interpolation
 
@@ -90,6 +91,7 @@ class IOHandler:
         """
         path = self.evaluate_path(obj[s.io_path_key])
         create = not obj[s.io_exists_key]
+        local_path = None
         _type = obj[s.io_type_key]
 
         match _type:
@@ -97,6 +99,10 @@ class IOHandler:
                 return dh(path, create=create)
             case x if x in s.file_obj_types:
                 return fh(path, create=create)
+            case x if x in s.remote_obj_types:
+                if s.local_path_key in obj:
+                    local_path = self.evaluate_path(obj[s.local_path_key])
+                return rh(path, local_path=local_path)
             case _:
                 raise ValueError(f"object {obj[s.io_name_key]} type {_type} not handled")
 

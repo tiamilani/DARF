@@ -37,7 +37,9 @@ class s: # pylint: disable=too-few-public-methods,unused-variable
     # Types of IO objects
     folder_obj_types = ["folder", "direcotry"]
     file_obj_types = ["file"]
-    io_types = folder_obj_types + file_obj_types
+    remote_obj_types = ["remote"]
+    local_path_key = "local"
+    io_types = folder_obj_types + file_obj_types + remote_obj_types
     dataset_obj_type = "dataset"
     dataset_obj_types = ["dataset"]
     data_operations_key = "operations"
@@ -51,7 +53,7 @@ class s: # pylint: disable=too-few-public-methods,unused-variable
     dst_origin_depends_on = ["Copy", "Dependent", "Join"]
     all_dst_origin = dst_origin_depends_on + ["Local", "CsvPkl", "TfPkl", "TfPklList",
                                               "TfPklListIterator", "Online",
-                                              "ObjPklList"]
+                                              "ObjPklList", "Remote"]
 
     # General data container
     input_data = "input_data"
