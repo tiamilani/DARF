@@ -125,20 +125,24 @@ def facet_set_ax_xlabel(df: pd.DataFrame,
     if row_id is not None and col_id is not None:
         ax = facetgrid.facet_axis(row_id, col_id)
         ax.set_xlabel(label, **kwargs)
+        return facetgrid
 
     if row_id is None and col_id is None:
         for ax in facetgrid.axes.flatten():
             ax.set_xlabel(label, **kwargs)
+        return facetgrid
 
     if row_id is not None:
         axes_row = facetgrid.axes[row_id]
         for ax in axes_row:
             ax.set_xlabel(label, **kwargs)
+        return facetgrid
 
     if col_id is not None:
         axes_clm = [facetgrid.axes[i][col_id] for i in range(len(facetgrid.axes))]
         for ax in axes_clm:
             ax.set_xlabel(label, **kwargs)
+        return facetgrid
 
     return facetgrid
 

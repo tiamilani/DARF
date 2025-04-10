@@ -53,7 +53,7 @@ class Pb:
             kwargs
         """
         return tqdm(*args, **kwargs, ascii=True, total=num,
-                    bar_format="{desc} {n_fmt}/{total_fmt} [{elapsed}]\033[0m")
+                    bar_format="{desc} {n_fmt}/{total_fmt} [{elapsed}]{postfix}\033[0m")
 
     @classmethod
     def success_close(cls,
@@ -68,5 +68,7 @@ class Pb:
             bar
         """
         pbar.set_description_str(f"\033[0;32m✔️  {msg}\033[0m")
+        pbar.set_postfix_str("                                                             ", refresh=True)
+        pbar.clear()
         pbar.refresh()
         pbar.close()

@@ -20,7 +20,8 @@ import os
 from pathlib import Path
 import paramiko
 from scp import SCPClient
-from tqdm import tqdm
+
+from darf.src.io.progress_bar import Pb as pb
 
 from typing import List, Optional
 
@@ -198,7 +199,6 @@ class RemoteHandler:
 
         remote_file = os.path.join(self.remote_path, remote_file) if not remote_file is None \
                         else self.remote_path
-        print(remote_file)
 
         if local_file is None:
             local_file = os.path.join(self.local_path, os.path.basename(remote_file))
@@ -210,11 +210,11 @@ class RemoteHandler:
         # Create an SCP client
         with SCPClient(self.__conn.get_transport(), progress=RemoteHandler.progress) as scp:
             # Initialize the progress bar
-            bar = tqdm(total=0, unit="B", unit_scale=True, desc=f"Downloading {remote_file}")
+            bar = pb.databar(0, unit="B", unit_scale=True,
+                             desc=f"Downloading {remote_file}", leave=False)
             scp.get(remote_file, local_file)
             bar.close()
 
-        print(f"Transferred {remote_file} to {local_file}")
         if reset:
             self.close_connection()
         return local_file

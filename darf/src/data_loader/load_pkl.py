@@ -24,6 +24,7 @@ from darf.src.io import PickleHandler as PkH
 from darf.src.io import FileHandler as FH
 from darf.src.decorators import data_loader, data_loaders
 from darf.src.data_loader import Base
+from darf.src.io.remote import RemoteHandler as RH
 
 @data_loader
 class CsvPkl(Base):
@@ -36,11 +37,11 @@ class CsvPkl(Base):
 
     This function keeps an object that represent the loaded pkl object
     remember to remvoe from memory the object if a copy has been made.
-	"""
+    """
 
     def __init__(self, *args, pklh: PkH = None, **kwargs):
         """__init__.
-		"""
+        """
         self.__pklh = pklh
         super().__init__(*args, **kwargs)
         self.write_msg(f"Loading Pkl with args {args} and kwargs {kwargs}") # pylint: disable=no-member
@@ -88,11 +89,11 @@ class TfPkl(Base):
 
     This function keeps an object that represent the loaded pkl object
     remember to remvoe from memory the object if a copy has been made.
-	"""
+    """
 
     def __init__(self, *args, pklh: PkH = None, **kwargs):
         """__init__.
-		"""
+        """
         self.__pklh = pklh
         super().__init__(*args, **kwargs)
         self.write_msg(f"Loading Pkl with args {args} and kwargs {kwargs}") # pylint: disable=no-member
@@ -174,6 +175,15 @@ class TfPklList(data_loaders['TfPkl']):
     def __call__(self, *args, **kwargs) -> pd.DataFrame:
         """__call__.
         """
+
+        # Load locally remote files present in the list and replace the path in the list
+        for f in self.value:
+            # Identify if f contains a remote path (presence of : in the path)
+            if re.search(r":", f):
+                rh = RH(f, local_path=kwargs.get('local', None))
+                local_file = rh.transfer_file()
+                self.value[self.value.index(f)] = local_file
+
         objs = [self.pklh.load(o, override=True) for o in self.value]
         dfs = [self.tfl2df(o) for o in objs]
         for i, df in enumerate(dfs):
@@ -193,6 +203,14 @@ class ObjPklList(data_loaders['TfPklList']):
     def __call__(self, *args, **kwargs) -> pd.DataFrame:
         """__call__.
         """
+        # Load locally remote files present in the list and replace the path in the list
+        for f in self.value:
+            # Identify if f contains a remote path (presence of : in the path)
+            if re.search(r":", f):
+                rh = RH(f, local_path=kwargs.get('local', None))
+                local_file = rh.transfer_file()
+                self.value[self.value.index(f)] = local_file
+
         objs = [self.pklh.load(o, override=True) for o in self.value]
         if len(objs[0] > 5000):
             objs[0] = objs[0][:5000]

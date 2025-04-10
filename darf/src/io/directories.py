@@ -105,6 +105,25 @@ class DirectoryHandler:
                 print(f"Failed to delete {elem}. Reason: {exception}")
                 raise exception
 
+    @classmethod
+    def check(cls, path: str) -> bool:
+        """check.
+        Function to check if the path provided is
+        a directory
+
+        Parameters
+        ----------
+        path : str
+            path
+
+        Returns
+        -------
+        bool
+            True if the directory exists
+
+        """
+        return os.path.isdir(path)
+
     def __str__(self) -> str:
         """__str__.
 

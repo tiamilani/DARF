@@ -80,3 +80,25 @@ def legend(df: pd.DataFrame,
     selected_ax = mplt.pyplot.gcf().axes[ax_id]
     selected_ax.legend(**kwargs)
     return ax
+
+@plot_op
+def legend_z_order(df: pd.DataFrame,
+                   ax: mplt.axes.Axes,
+                   ax_id: int = 0,
+                   zorder: int = 10) -> mplt.axes.Axes:
+    selected_ax = mplt.pyplot.gcf().axes[ax_id]
+    selected_ax.get_legend().set_zorder(zorder)
+    return ax
+
+@plot_op
+def remove_legend(df: pd.DataFrame,
+                  ax: mplt.axes.Axes,
+                  ax_id: Optional[int] = None) -> mplt.axes.Axes:
+    if ax_id is None:
+        for selected_ax in mplt.pyplot.gcf().axes:
+            if selected_ax.get_legend() is not None:
+                selected_ax.get_legend().remove()
+    else:
+        selected_ax = mplt.pyplot.gcf().axes[ax_id]
+        selected_ax.get_legend().remove()
+    return ax

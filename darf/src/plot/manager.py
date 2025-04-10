@@ -70,7 +70,7 @@ class PlotManager:
         None
 
         """
-        pbar = pb.tq_bar(len(self.cfg.objects.keys()), desc="Loading plots ...")
+        pbar = pb.databar(len(self.cfg.objects.keys()), desc="Loading plots ...")
         for plt_key in self.cfg.objects.keys():
             plt_obj = self.cfg.objects[plt_key]
 
@@ -99,7 +99,7 @@ class PlotManager:
         None
 
         """
-        pbar = pb.tq_bar(len(self.plotters.keys()), desc="Plot generation ...")
+        pbar = pb.databar(len(self.plotters.keys()), desc="Plot generation ...")
         for key, plot in self.plotters.items():
             pbar.set_description_str(f"Plot generation {key}")
 
