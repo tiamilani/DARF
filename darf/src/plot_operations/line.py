@@ -11,7 +11,7 @@ Line plot operations
 All functions that can be applied to add lines to the plot
 """
 
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 import pandas as pd
 import matplotlib as mplt
@@ -154,11 +154,12 @@ def horizontal_line(df: pd.DataFrame,
 @plot_op
 def add_outage_line(df: pd.DataFrame,
                     ax: mplt.axes.Axes,
+                    ax_id: Optional[int] = None,
                     anomalies_column: Optional[str] = None,
                     anomalies_reference: Optional[str] = None,
                     ax_kwargs: Optional[dict] = None,
                     txt_flag: bool = True,
-                    txt_kwargs: Optional[dict] = None,
+                    txt_kwargs: Optional[Dict[str, Any]] = None,
                     **kwargs) -> mplt.axes.Axes:
     """add_outage_line.
 
@@ -188,6 +189,8 @@ def add_outage_line(df: pd.DataFrame,
     mplt.axes.Axes
         The axis with the line added
     """
+    axes = mplt.pyplot.gcf().axes
+    selected_axes = axes if ax_id is None else axes[ax_id]
     if anomalies_column is None:
         raise ValueError("Anomalies column is required")
     if anomalies_reference is None:
@@ -199,24 +202,90 @@ def add_outage_line(df: pd.DataFrame,
     default_txt_kwargs = {'delta': {'minutes': 10},
                           'y': 0.8,
                           'format': '%H:%M'}
-    if txt_kwargs is not None:
-        default_txt_kwargs.update(txt_kwargs)
-        for key in default_txt_kwargs.keys():
-            if key in txt_kwargs:
-                del txt_kwargs[key]
+    if txt_kwargs is None:
+        txt_kwargs = {}
 
-    top_y = ax.get_ylim()[1]
+    for key in default_txt_kwargs.keys():
+        if key not in txt_kwargs.keys():
+            txt_kwargs[key] = default_txt_kwargs[key]
+
+    top_y = selected_axes.get_ylim()[1]
+    delta = txt_kwargs['delta']
+    y = txt_kwargs['y']
+    time_format = txt_kwargs['format']
+    del txt_kwargs['delta']
+    del txt_kwargs['y']
+    del txt_kwargs['format']
     for i in df[df[anomalies_column] == 1][anomalies_reference].unique():
-        ax.axvline(i, **ax_kwargs)
+        selected_axes.axvline(i, **ax_kwargs)
 
         if txt_flag:
-            delta = default_txt_kwargs['delta']
-            y = default_txt_kwargs['y']
-            time_format = default_txt_kwargs['format']
-
-            ax.text(i+datetime.timedelta(**delta),
+            selected_axes.text(i+datetime.timedelta(**delta),
                     top_y*y,
                     f"{i.strftime(time_format)}",
                     **txt_kwargs)
 
+    return ax
+
+@plot_op
+def add_circle(df: pd.DataFrame,
+               ax: mplt.axes.Axes,
+               *args,
+               ax_id: int = 0,
+               **kwargs) -> mplt.axes.Axes:
+    """add_circle.
+    Add a circle to the plot
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    ax : mplt.axes.Axes
+        The axis where to add the circle
+    ax_id: int
+        The axis id
+    *args : tuple
+        Additional positional arguments for the circle
+    **kwargs : dict
+        Additional keyword arguments for the circle
+
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis with the circle added
+    """
+    current_ax = mplt.pyplot.gcf().axes[ax_id]
+    print(current_ax.get_xlim())
+    current_ax.add_patch(mplt.pyplot.Circle(*args, **kwargs))
+    return ax
+
+@plot_op
+def add_ellipse(df: pd.DataFrame,
+               ax: mplt.axes.Axes,
+               *args,
+               ax_id: int = 0,
+               **kwargs) -> mplt.axes.Axes:
+    """add_circle.
+    Add a circle to the plot
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    ax : mplt.axes.Axes
+        The axis where to add the circle
+    ax_id: int
+        The axis id
+    *args : tuple
+        Additional positional arguments for the circle
+    **kwargs : dict
+        Additional keyword arguments for the circle
+
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis with the circle added
+    """
+    current_ax = mplt.pyplot.gcf().axes[ax_id]
+    current_ax.add_patch(mplt.patches.Ellipse(*args, **kwargs))
     return ax

@@ -13,4 +13,8 @@ from .expand import * # pylint: disable=unused-variable
 from .transform import * # pylint: disable=unused-variable
 from .timeseries import * # pylint: disable=unused-variable
 from .groupby import * # pylint: disable=unused-variable
+from .sankey import df2sankey
+from .sort import * # pylint: disable=unused-variable
+from .save import save_csv
+from .rolling import * # pylint: disable=unused-variable
 from .operations import function_caller as OP_caller

@@ -11,7 +11,7 @@ rename Module
 Contains operations relatives to the rename of dataframes
 """
 
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Union
 
 import pandas as pd
 
@@ -19,20 +19,22 @@ from darf.src.decorators import data_op
 
 @data_op
 def rename_clm(df: pd.DataFrame,
-                old_clm: Optional[List[str]] = None,
-                new_clm: Optional[List[str]] = None,
+                old_clm: Optional[Union[List[str], str]] = None,
+                new_clm: Optional[Union[List[str], str]] = None,
                 **kwargs) -> pd.DataFrame:
     """rename.
     Rename the columns of the dataframe.
+    Beware, by default df.rename does not check if the columns exits, you need to specify
+    the ``errors='raise'`` parameter to raise an error if the columns do not exist.
 
     Parameters
     ----------
     df : pd.DataFrame
         The input data
-    old_clm : List[str]
-        List of old column names
-    new_clm : List[str]
-        List of new column names
+    old_clm : List[str] or str
+        List of old column names or a single old column name
+    new_clm : List[str] or str
+        List of new column names or a single new column name
     kwargs : Dict
         Dictionary of keyword arguments
 
@@ -40,9 +42,19 @@ def rename_clm(df: pd.DataFrame,
     -------
     pd.DataFrame
         The renamed DataFrame
+
+    Raises
+    ------
+    AssertionError
+        If the length of old_clm and new_clm are not the same
+    KeyError
+        If the columns do not exist in the dataframe and errors='raise' is set.
     """
     old_clm = old_clm if not old_clm is None else []
     new_clm = new_clm if not new_clm is None else []
+
+    old_clm = old_clm if isinstance(old_clm, list) else [old_clm]
+    new_clm = new_clm if isinstance(new_clm, list) else [new_clm]
 
     assert len(old_clm) == len(new_clm)
     rename_dict = dict(zip(old_clm, new_clm))
@@ -136,4 +148,3 @@ def replace_nan(df: pd.DataFrame,
                 **kwargs) -> pd.DataFrame:
     df.fillna(new_val, inplace=True)
     return df
-

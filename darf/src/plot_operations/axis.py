@@ -16,8 +16,47 @@ from typing import Optional, Dict, Tuple, List, Union, Any
 import pandas as pd
 import matplotlib as mplt
 import matplotlib.dates as mdates
+import seaborn as sns
 
 from darf.src.decorators import plot_op
+
+@plot_op
+def set_ax_size(df: pd.DataFrame,
+                ax: mplt.axes.Axes,
+                width: Optional[float] = None,
+                height: Optional[float] = None) -> mplt.axes.Axes:
+    """set_ax_size.
+
+    Set the size of the axis
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data, not used
+    ax : mplt.axes.Axes
+        The axis where to set the size
+    width : float
+        The width of the axis
+    height : float
+        The height of the axis
+
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis with the size set
+    """
+    if width is not None and height is not None:
+        ax = mplt.pyplot.gca()
+        l = ax.figure.subplotpars.left
+        r = ax.figure.subplotpars.right
+        t = ax.figure.subplotpars.top
+        b = ax.figure.subplotpars.bottom
+        figw = float(width)/(r-l)
+        figh = float(height)/(t-b)
+        ax.figure.set_size_inches(figw, figh)
+    else:
+        raise ValueError("Both width and height must be provided to set the axis size.")
+    return ax
 
 @plot_op
 def x_date_formatter(df: pd.DataFrame,
@@ -200,4 +239,48 @@ def set_ax(df: pd.DataFrame,
 
         if remove_legend and current_ax.get_legend() is not None:
             current_ax.get_legend().remove()
+    return ax
+
+@plot_op
+def invert_ax(df: pd.DataFrame,
+             ax: mplt.axes.Axes,
+             ax_id: Optional[int] = None,
+             y_axis: Optional[bool] = False) -> mplt.axes.Axes:
+    """invert_ax.
+
+    Invert the x or y axis
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    ax : mplt.axes.Axes
+        The axis where to set the outage probability
+    ax_id : int
+        The axis id, if not provided the operations will be applied
+        to all the axes
+    y_axis: bool
+        If True, invert the y axis, otherwise invert the x axis
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis with the outage probability set
+    """
+    if ax_id is not None:
+        current_ax = mplt.pyplot.gcf().axes[ax_id]
+        if y_axis:
+            current_ax.invert_yaxis()
+        else:
+            current_ax.invert_xaxis()
+    else:
+        if len(mplt.pyplot.gcf().axes) == 1:
+            if y_axis:
+                ax.invert_yaxis()
+            else:
+                ax.invert_xaxis()
+        else:
+            for current_ax in mplt.pyplot.gcf().axes:
+                if y_axis:
+                    current_ax.invert_yaxis()
+                else:
+                    current_ax.invert_xaxis()
     return ax

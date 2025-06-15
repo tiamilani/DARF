@@ -228,6 +228,11 @@ class Plotter: # pylint: disable=unused-variable
         self.sns_set_api(font_scale=self.font_scale)
         self.sns_set_api("white", interface=sns.set_style)
         self.sns_set_api(sns.color_palette(), interface=sns.set_palette)
+        plt.rcParams.update({
+            "font.family": "sans-serif",
+            "ps.usedistiller": 'xpdf',
+            "font.size": 16,
+        })
 
     def set_special(self, keyword: str, *args, **kwargs) -> None:
         """set_special.
@@ -277,21 +282,23 @@ class Plotter: # pylint: disable=unused-variable
         """
         ax = plt.gca()
         self.plot.figure.set_layout_engine('constrained')
-        b_patch = patches.Patch(color=self.palette[0], label=r"$\hat{G}$")
-        g_patch = patches.Patch(color=self.palette[1], label=r"$\hat{B}$")
-        point_b = Line2D([0], [0], label=r"$\hat{D}$", marker='o', markersize=10,
+        b_patch = patches.Patch(color=self.palette[0], label=r"$\widetilde{G}$")
+        g_patch = patches.Patch(color=self.palette[1], label=r"$\widetilde{B}$")
+        point_b = Line2D([0], [0], label=r"$\widetilde{D}$", marker='o', markersize=10,
         markeredgecolor="black", markerfacecolor="black", linestyle='')
-        ax.legend(handles=[g_patch, b_patch, point_b], ncol=3, loc="lower left",
-                  title="Classes")
-        # img = self.other_plots[0].imshow(None)
-        cax = self.other_plots[0].inset_axes([1.22, 0.05, 0.05, 0.95])
-        cmap = sns.cubehelix_palette(start=.5, rot=-.75, as_cmap=True, reverse=True)
-        self.plot.figure.colorbar(mpl.cm.ScalarMappable(norm=mpl.colors.Normalize(1, 10),
-                                        cmap=cmap), cax=cax,
-                                  orientation='vertical', ticks=[1.1, 9.9],
-                                  format=ticker.FixedFormatter(['Low', 'High']),
-                                  fraction=0.05, pad=0.5,
-                                  label=r"$\hat{D}$ Difficulty level")
+        ax.legend(handles=[g_patch, b_patch, point_b], ncol=1, loc="lower left",
+                  bbox_to_anchor=(-0.55, 0.15))
+        # ax = plt.gca()
+        # ax.legend().remove()
+        # self.plot.figure.set_layout_engine('constrained')
+        # cax = self.other_plots[0].inset_axes([1.05, 0.05, 0.05, 0.95])
+        # cmap = sns.cubehelix_palette(start=.5, rot=-.75, as_cmap=True, reverse=True)
+        # self.plot.figure.colorbar(mpl.cm.ScalarMappable(norm=mpl.colors.Normalize(0.5, 10),
+        #                                 cmap=cmap), cax=cax,
+        #                           orientation='vertical', ticks=[1.0, 5.0, 9.0],
+        #                           format=ticker.FixedFormatter(['9', '5', '1']),
+        #                           fraction=0.05, pad=0.5,
+        #                           label=r"$\widetilde{D}$ \#Outage minutes")
 
     def inference_emb_joint_scatter(self) -> None:
         """inference_emb_joint_scatter.

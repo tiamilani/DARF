@@ -27,7 +27,6 @@ class ConfHandler:
     current configuration.
     """
 
-
     def __init__(self, conf_file: Union[FH, DH]):
         """__init__.
 

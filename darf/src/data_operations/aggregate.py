@@ -388,3 +388,66 @@ def dst_aggregate(df: pd.DataFrame,
             return df.assign(**{new_clm: pd.Series(values).mean()})
         case _:
             raise ValueError(f"Technique {technique} not implemented")
+
+@data_op
+def merge_clm(df: pd.DataFrame,
+              clm1: str = "clm1",
+              clm2: str = "clm2",
+              new_clm: str = "new_clm",
+              f_str: Optional[str] = None) -> pd.DataFrame:
+    """merge_clm.
+
+    Merge two columns into a new column.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    clm1 : str
+        The first column to merge
+    clm2 : str
+        The second column to merge
+    new_clm : str
+        The new column name
+    f_str : Optional[str]
+        the format string to use for the new column
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    if f_str is not None:
+        new_clm_values = []
+        for row in df.iterrows():
+            new_clm_values.append(f_str.format(clm1=row[1][clm1], clm2=row[1][clm2]))
+        df[new_clm] = new_clm_values
+        return df
+    df[new_clm] = df[clm1].astype(str) + df[clm2].astype(str)
+
+@data_op
+def add_cm_types(df: pd.DataFrame,
+                  stat_clm: str = "stat_clm") -> pd.DataFrame:
+    labels = ["Normal", "Outage"]
+    predicted = []
+    expected = []
+    for row in df.iterrows():
+        stat = row[1][stat_clm]
+        match stat:
+            case "TP":
+                predicted.append(labels[0])
+                expected.append(labels[0])
+            case "TN":
+                predicted.append(labels[1])
+                expected.append(labels[1])
+            case "FP":
+                predicted.append(labels[0])
+                expected.append(labels[1])
+            case "FN":
+                predicted.append(labels[1])
+                expected.append(labels[0])
+            case _:
+                raise Exception(f"Unknown stat {stat}")
+    df["Predicted label"] = predicted
+    df["Expected label"] = expected
+    df.drop(columns=[stat_clm], inplace=True)
+    return df

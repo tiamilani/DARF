@@ -50,7 +50,7 @@ def multi_joint(*args, data: pd.DataFrame = None,
     # data['Label'] = data['Label'].astype('category')
     # print(data.dtypes)
     # print(data)
-    p_joint = sns.jointplot(data=data, *args, **kwargs)
+    p_joint = sns.kdeplot(data=data, *args, **kwargs)
 
     if compute_centroids:
         # Extract hue_order labels point from the data

@@ -7,3 +7,4 @@ from .clusters import *
 from .plot_functions import *
 from .anomalies import *
 from .line import *
+from .sankey import *

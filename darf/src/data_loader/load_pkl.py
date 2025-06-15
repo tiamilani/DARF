@@ -212,8 +212,8 @@ class ObjPklList(data_loaders['TfPklList']):
                 self.value[self.value.index(f)] = local_file
 
         objs = [self.pklh.load(o, override=True) for o in self.value]
-        if len(objs[0] > 5000):
-            objs[0] = objs[0][:5000]
+        # if len(objs[0] > 5000):
+        #     objs[0] = objs[0][:5000]
 
         dfs = [self.tfl2df(o) for o in objs]
         self.data = pd.concat(dfs, axis=0)

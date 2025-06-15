@@ -90,6 +90,10 @@ The third line saves the plot in a file called ``first_plot.pdf``.
 But multiple file format could be used like ``['png', 'pdf']``, this would
 generate two files with the same plot.
 Please refer to the plotter module for more information.
+
+.. image:: ../static/first_plot.png
+        :alt: first_plot
+        :align: center
 """
 
 from darf.src import Dataset
@@ -101,6 +105,6 @@ flights = Dataset({"origin": "Online",
 print(flights.data)
 
 # Create the plot
-plt = Plotter(flights.data)
+plt = Plotter(flights.data, out_format=['png'])
 plt('line', x='year', y='passengers')
 plt.save('first_plot')

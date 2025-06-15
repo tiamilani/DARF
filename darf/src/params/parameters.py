@@ -100,8 +100,14 @@ class Plot(TypeSpecific):
             kwargs
         """
         self.dataset=d[s.plot_datasets_key]
-        self.extensions=ast.literal_eval(d[s.plot_extensions_key])
-        self.output_name=d[s.plot_output_name_key]
+
+        self.extensions = ['pdf', 'png']
+        if s.plot_extensions_key in d.keys():
+            self.extensions=ast.literal_eval(d[s.plot_extensions_key])
+
+        self.output_name="default"
+        if s.plot_output_name_key in d.keys():
+            self.output_name=d[s.plot_output_name_key]
 
         if s.plot_dataset_merge_axis_key in d.keys():
             raise ValueError("The merge axis is not available anymore, \
@@ -119,7 +125,7 @@ class Plot(TypeSpecific):
             raise ValueError("The dataset keywords are not available anymore, \
                     use the dataset dependencies")
 
-        self.legend_flag = True
+        self.legend_flag = False
         if s.plot_legend_key in d.keys():
             self.legend_flag = ast.literal_eval(d[s.plot_legend_key])
 

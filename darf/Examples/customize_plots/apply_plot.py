@@ -19,4 +19,3 @@ flights = scl.Dataset({"origin": "Online",
 print(flights.data)
 
 # Create the plot
-plt_m = sc

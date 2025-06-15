@@ -5,10 +5,30 @@
 # Contact: Mattia Milani (Nokia) <mattia.milani@nokia.com>
 
 """
-loadLocal module
-================
+Load Local
+==========
 
-Use this module to manage a Local loader.
+This module is used to load a locally available dataset.
+The dataset is loaded expecting a ``.csv`` file provided as a path.
+
+This module is used when the ``origin=Local`` keyword is used in the configuration file.
+
+An example of configuration file that loads a local available csv file is the following
+configuration:
+
+.. code-block:: ini
+
+    [test_dataset]
+    type=dataset
+    origin=Local
+    value=<path to a local csv file>
+
+The correct loading of the dataset can be tested using the following command:
+
+.. code-block:: bash
+
+    darf -c conf.ini -D test_dataset
+
 """
 
 import pandas as pd

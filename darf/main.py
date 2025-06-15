@@ -21,6 +21,7 @@ import pkg_resources
 from darf.src.environment.conf import conf as env_conf
 from darf.src.util.strings import s
 from darf.src.io import DirectoryHandler as DH
+from darf.src.io import FileHandler as FH
 from darf.src.io import ConfHandler as CH
 from darf.src.io import IOHandler as IOH
 from darf.src.log import LogHandler as LH
@@ -33,9 +34,9 @@ from darf.src.plot import PlotManager as PM
 parser = argparse.ArgumentParser(usage="usage: main.py [options]",
                       description="Execute plots from configurations",
                       formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("-c", "--confFolder", dest="confFolder", default="Conf/default",
-                    action="store", help="define the input configuration folder \
-                            where to find ini files")
+parser.add_argument("-c", "--conf", dest="conf", default="Conf/default",
+                    action="store", help="define the input configuration it can be a single \
+                            ini file or a folder containing multiples")
 parser.add_argument("-v", "--verbose", dest="verbosity", default=1,
                     action="count", help=s.verbose_help)
 parser.add_argument("-D", "--show-data", nargs='*', dest="show_data", default=None,
@@ -58,13 +59,16 @@ def main():
     options = parser.parse_args()
 
     # Load the custom configuration files
-    main_dir: DH = DH(options.confFolder, create=False)
+    if DH.check(options.conf):
+        custom_conf: DH = DH(options.conf, create=False)
+    else:
+        custom_conf: FH = FH(options.conf, create=False)
 
     # check that the default configuration exists
     assert pkg_resources.resource_exists(__name__, s.default_conf)
     default_conf = pkg_resources.resource_filename(__name__, s.default_conf)
     conf: CH = CH(DH(default_conf))
-    conf.update(main_dir)
+    conf.update(custom_conf)
 
     io: IOH = IOH.from_cfg(conf)
     logger: LH = LH(io[s.log_file], LH.find_ll(options.verbosity))

@@ -6,7 +6,7 @@
 
 """
 loadList module
-================
+===============
 
 Use this module to manage a loader that manages a list of datasets
 """
@@ -15,10 +15,10 @@ from typing import List
 
 import pandas as pd
 
-from seacoral.src.decorators import data_loader, data_loaders
-from seacoral.src.data_loader import Base
-from seacoral.src.io.directories import DirectoryHandler as DH
-from seacoral.src.io.files import FileHandler as FH
+from darf.src.decorators import data_loader, data_loaders
+from darf.src.data_loader import Base
+from darf.src.io.directories import DirectoryHandler as DH
+from darf.src.io.files import FileHandler as FH
 
 @data_loader
 class CsvList(Base):

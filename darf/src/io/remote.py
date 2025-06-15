@@ -59,6 +59,7 @@ class RemoteHandler:
 
         self.__conn = None
 
+        return
         self.open_connection()
         if not self.test_connection():
             raise Exception("The connection is not active")

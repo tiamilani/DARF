@@ -14,6 +14,7 @@ Use this module to control io objects from the configuration file
 
 from typing import List, TypeVar, Union, Tuple, Self
 import re
+import os
 import pkg_resources
 
 from darf.src.util.strings import s
@@ -73,8 +74,11 @@ class IOHandler:
             d[s.io_exists_key] = True if s.io_exists_key not in d else \
                                     conf.cfg.getboolean(key, s.io_exists_key)
 
-            if d[s.io_path_key] == "__name__":
-                d[s.io_path_key] = pkg_resources.resource_filename("darf.main", "")
+            match d[s.io_path_key]:
+                case "__name__":
+                    d[s.io_path_key] = pkg_resources.resource_filename("darf.main", "")
+                case "__current__":
+                    d[s.io_path_key] = os.getcwd()
 
             items.append(d)
         return cls(items)

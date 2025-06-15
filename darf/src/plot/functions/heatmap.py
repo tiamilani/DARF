@@ -20,6 +20,7 @@ from darf.src.decorators.decorators import plot
 @plot
 def draw_heatmap(pvt_kwargs=None, htm_kwargs=None,
                  data: pd.DataFrame = None,
+                 extract_rectangular: bool = False,
                  **kwargs) -> mplt.axes.Axes:
     """draw_heatmap.
 
@@ -39,7 +40,26 @@ def draw_heatmap(pvt_kwargs=None, htm_kwargs=None,
     if 'palette' in kwargs:
         kwargs.pop('palette')
 
-    pivot_data = data.pivot(**pvt_kwargs)
+    tmp_df = data.copy()
+    if extract_rectangular:
+        new_values = []
+        for row in tmp_df.iterrows():
+            value = row[1][pvt_kwargs['values']]
+            new_values.append(value.split('%')[0])
+        tmp_df[pvt_kwargs['values']] = new_values
+        tmp_df[pvt_kwargs['values']] = tmp_df[pvt_kwargs['values']].astype(float)
+
+    if extract_rectangular:
+        pivot_data = tmp_df.pivot(**pvt_kwargs)
+        labels = data.pivot(**pvt_kwargs).reset_index(drop=True)
+        labels = labels.astype(str)
+    else:
+        pivot_data = data.pivot(**pvt_kwargs)
+        labels = data.pivot(**pvt_kwargs)
+
+
+    if extract_rectangular:
+        return sns.heatmap(data=pivot_data, annot=labels, **htm_kwargs, **kwargs)
     return sns.heatmap(data=pivot_data, **htm_kwargs, **kwargs)
 
 
@@ -100,4 +120,3 @@ def heatmap(*args, data: pd.DataFrame = None, **kwargs) -> mplt.axes.Axes:
 
     """
     return sns.heatmap(data=data, *args, **kwargs)
-

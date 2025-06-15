@@ -6,7 +6,7 @@
 
 """
 timeseries Module
-=============
+=================
 
 Contains operations relatives to the timeseries and timestamp domanin.
 """
@@ -199,4 +199,28 @@ def flag_first_alert(df: pd.DataFrame,
             df.loc[alert, new_clm] = 1
         first_alert = alert
 
+    return df
+
+@data_op
+def uxtimestamp_to_datetime(df: pd.DataFrame,
+                     clm: str = "timestamp",
+                     **kwargs) -> pd.DataFrame:
+    """uxtimestamp_to_datetime.
+    Convert a column with unix timestamps to datetime
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    clm : str
+        The column to convert
+    kwargs : Dict
+        Dictionary of keyword arguments
+
+    Returns
+    -------
+    pd.DataFrame
+        The DataFrame with the converted column
+    """
+    df[clm] = pd.to_datetime(df[clm], unit="s", **kwargs)
     return df

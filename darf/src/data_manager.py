@@ -13,6 +13,7 @@ Use this module to manage a class object.
 
 from typing import Any, Dict, List, Self, Optional
 
+import numpy as np
 import pandas
 
 from darf.src.params import ParamHandler as PH
@@ -255,6 +256,7 @@ class Dataset:
         ----------
 
         Returns
+
         -------
         None
 
@@ -454,7 +456,17 @@ class DatasetManager:
             print(f"Data: {key}\n{self[key]}")
             print(f"Data info:\n {self[key].shape}")
             print(f"Data types:\n {self[key].dtypes}")
+            # print columns stats
+            print(f"Statistics: {self[key].describe()}")
             print("------------------------")
+            print(f"{len(self[key]['op_id'].unique())} unique op_id")
+            # print(f"N sample with bad_p > 50%: {self[key].loc[self[key]['bad_p'] > 50.0].shape[0]}")
+            # print(f"Unique op_id: {np.array(self[key]['op_id'].unique())}")
+            raise Exception
+            # df = self[key]
+            # df['bad'] = df['bad']/42842
+            # df = df.sort_values(by=['bad'], ascending=False)
+            # df.to_csv(f"bad_{key}.csv")
             # l_low = 30.0
             # l_high = 70.0
             # df_bad_p_in_range = self[key].loc[(self[key]['bad_p'] >= l_low) & (self[key]['bad_p'] <= l_high)]

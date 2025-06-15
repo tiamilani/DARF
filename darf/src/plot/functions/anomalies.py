@@ -40,7 +40,7 @@ def anomalies_prob_heatmap(pvt_kwargs=None, htm_kwargs=None,
 
     pivot_data = data.pivot(**pvt_kwargs)
     p = sns.heatmap(data=pivot_data, **htm_kwargs, **kwargs)
-    mplt.pyplot.gca().tick_params(axis='y', rotation=45)
+    mplt.pyplot.gca().tick_params(axis='x', rotation=45)
     return p
 
 
@@ -189,6 +189,26 @@ def line_outages_alerts_distances(*args, data: pd.DataFrame = None,
     p = sns.lineplot(data=data, ax=axes[0], *args, **kpi_kwargs, **kwargs)
     prob = sns.lineplot(data=data, ax=axes[1], *args, **prb_kwargs, **kwargs)
     dst = sns.lineplot(data=data, ax=axes[2], *args, **dst_kwargs, **kwargs)
+    return p
+
+@plot
+def outages_alerts(*args, data: pd.DataFrame = None,
+                   kpi_kwargs: Optional[dict] = None,
+                   **kwargs) -> mplt.axes.Axes:
+    """line_outages_description.
+
+    Lineplot for outages
+
+    """
+
+    # Check if a palette is present in the kwargs
+    if 'palette' in kwargs:
+        palette = kwargs.pop('palette')
+
+    if 'palette' not in kpi_kwargs:
+        kpi_kwargs['palette'] = palette
+
+    p = sns.lineplot(data=data, *args, **kpi_kwargs, **kwargs)
     return p
 
 @plot

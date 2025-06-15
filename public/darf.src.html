@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>darf.src package &mdash; DARF 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="darf.src.context_managers package" href="darf.src.context_managers.html" />
+    <link rel="prev" title="darf.pylint_plugins.pylint_decorator module" href="darf.pylint_plugins.pylint_decorator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DARF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CLIusage.html">CLI Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIusage.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Customization.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Dataset</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Dataset.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetOperations.html">Dataset Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetForking.html">Dataset Forking</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Plot.html">Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlotLevelCustomization.html">Plot level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FigureLevelCustomization.html">Figure level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserDefinedFunctions.html">User Defined Plot Functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentGuidelines.html">Development Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Change Log</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">darf</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="darf.html">darf package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="darf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="darf.Examples.html">darf.Examples package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.pylint_plugins.html">darf.pylint_plugins package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">darf.src package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="darf.html#module-darf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DARF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">darf</a></li>
+          <li class="breadcrumb-item"><a href="darf.html">darf package</a></li>
+      <li class="breadcrumb-item active">darf.src package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/darf.src.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="darf-src-package">
+<h1>darf.src package<a class="headerlink" href="#darf-src-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.context_managers.html">darf.src.context_managers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.context_managers.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.context_managers.context_managers.html">darf.src.context_managers.context_managers module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.context_managers.context_managers.html#module-contextmanagers">Module contextManagers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.context_managers.context_managers.html#darf.src.context_managers.context_managers.timeit_cnt"><code class="docutils literal notranslate"><span class="pre">timeit_cnt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.context_managers.html#module-darf.src.context_managers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.data_loader.html">darf.src.data_loader package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.data_loader.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_base.html">darf.src.data_loader.load_base module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_base.html#loader-module">Loader module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_dependent.html">darf.src.data_loader.load_dependent module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_dependent.html#loaddependent-module">loadDependent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_dependent.html#darf.src.data_loader.load_dependent.Copy"><code class="docutils literal notranslate"><span class="pre">Copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_dependent.html#darf.src.data_loader.load_dependent.Dependent"><code class="docutils literal notranslate"><span class="pre">Dependent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_dependent.html#darf.src.data_loader.load_dependent.Join"><code class="docutils literal notranslate"><span class="pre">Join()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_list.html">darf.src.data_loader.load_list module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_list.html#loadlist-module">loadList module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_list.html#darf.src.data_loader.load_list.CsvList"><code class="docutils literal notranslate"><span class="pre">CsvList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_local.html">darf.src.data_loader.load_local module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_local.html#loadlocal-module">loadLocal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_local.html#darf.src.data_loader.load_local.Local"><code class="docutils literal notranslate"><span class="pre">Local()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_online.html">darf.src.data_loader.load_online module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_online.html#load-online-module">Load Online module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_online.html#darf.src.data_loader.load_online.Online"><code class="docutils literal notranslate"><span class="pre">Online()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_pkl.html">darf.src.data_loader.load_pkl module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#loadpklt-module">LoadPklt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#darf.src.data_loader.load_pkl.CsvPkl"><code class="docutils literal notranslate"><span class="pre">CsvPkl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#darf.src.data_loader.load_pkl.ObjPklList"><code class="docutils literal notranslate"><span class="pre">ObjPklList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#darf.src.data_loader.load_pkl.TfPkl"><code class="docutils literal notranslate"><span class="pre">TfPkl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#darf.src.data_loader.load_pkl.TfPklList"><code class="docutils literal notranslate"><span class="pre">TfPklList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_pkl.html#darf.src.data_loader.load_pkl.TfPklListIterator"><code class="docutils literal notranslate"><span class="pre">TfPklListIterator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.load_remote.html">darf.src.data_loader.load_remote module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_remote.html#loadremote-module">loadRemote module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.load_remote.html#darf.src.data_loader.load_remote.Remote"><code class="docutils literal notranslate"><span class="pre">Remote()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.loader.html">darf.src.data_loader.loader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.loader.html#loader-module">Loader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_loader.loader.html#darf.src.data_loader.loader.cls_loader"><code class="docutils literal notranslate"><span class="pre">cls_loader()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.data_loader.html#module-darf.src.data_loader">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_loader.html#load-module">Load Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.data_operations.html">darf.src.data_operations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.data_operations.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.aggregate.html">darf.src.data_operations.aggregate module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#aggregate-module">aggregate Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.box_maximum"><code class="docutils literal notranslate"><span class="pre">box_maximum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_accuracy"><code class="docutils literal notranslate"><span class="pre">cm_accuracy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_f1"><code class="docutils literal notranslate"><span class="pre">cm_f1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_fallout"><code class="docutils literal notranslate"><span class="pre">cm_fallout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_precision"><code class="docutils literal notranslate"><span class="pre">cm_precision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_recall"><code class="docutils literal notranslate"><span class="pre">cm_recall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_specific"><code class="docutils literal notranslate"><span class="pre">cm_specific()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.cm_specificity"><code class="docutils literal notranslate"><span class="pre">cm_specificity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.aggregate.html#darf.src.data_operations.aggregate.compute_cm"><code class="docutils literal notranslate"><span class="pre">compute_cm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.drop.html">darf.src.data_operations.drop module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.drop.html#drop-module">drop Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.expand.html">darf.src.data_operations.expand module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.expand.html#expand-module">expand Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.groupby.html">darf.src.data_operations.groupby module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.groupby.html#aggregate-module">aggregate Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.math.html">darf.src.data_operations.math module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.math.html#math-module">math Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.operations.html">darf.src.data_operations.operations module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.operations.html#data-operations-module">Data operations Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.operations.html#darf.src.data_operations.operations.function_caller"><code class="docutils literal notranslate"><span class="pre">function_caller()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.pivot.html">darf.src.data_operations.pivot module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.pivot.html#pivot-module">pivot Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.rename.html">darf.src.data_operations.rename module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.rename.html#rename-module">rename Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.split.html">darf.src.data_operations.split module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.split.html#split-module">split Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.timeseries.html">darf.src.data_operations.timeseries module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.timeseries.html#timeseries-module">timeseries Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.data_operations.transform.html">darf.src.data_operations.transform module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.data_operations.transform.html#transform-module">Transform Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.data_operations.html#module-darf.src.data_operations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.decorators.html">darf.src.decorators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.decorators.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.decorators.decorators.html">darf.src.decorators.decorators module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#decorators-module">Decorators Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.c_logger"><code class="docutils literal notranslate"><span class="pre">c_logger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.cls_wrapper"><code class="docutils literal notranslate"><span class="pre">cls_wrapper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.collector"><code class="docutils literal notranslate"><span class="pre">collector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.data_loader"><code class="docutils literal notranslate"><span class="pre">data_loader()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.data_op"><code class="docutils literal notranslate"><span class="pre">data_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.f_logger"><code class="docutils literal notranslate"><span class="pre">f_logger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.get_real_name"><code class="docutils literal notranslate"><span class="pre">get_real_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.interpolator"><code class="docutils literal notranslate"><span class="pre">interpolator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.plot_legend"><code class="docutils literal notranslate"><span class="pre">plot_legend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.plot_op"><code class="docutils literal notranslate"><span class="pre">plot_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.decorators.decorators.html#darf.src.decorators.decorators.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.decorators.html#module-darf.src.decorators">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.decorators.html#decorators-module">Decorators Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.environment.html">darf.src.environment package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.environment.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.environment.conf.html">darf.src.environment.conf module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.environment.conf.html#environment-conf-module">Environment conf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.environment.conf.html#darf.src.environment.conf.conf"><code class="docutils literal notranslate"><span class="pre">conf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.environment.conf.html#darf.src.environment.conf.set_tensorflow_device"><code class="docutils literal notranslate"><span class="pre">set_tensorflow_device()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.environment.html#module-darf.src.environment">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.io.html">darf.src.io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.io.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.command_interpolation.html">darf.src.io.command_interpolation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.command_interpolation.html#commands-interpolation-module">Commands Interpolation Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.command_interpolation.html#darf.src.io.command_interpolation.fn"><code class="docutils literal notranslate"><span class="pre">fn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.command_interpolation.html#darf.src.io.command_interpolation.str_interpolate"><code class="docutils literal notranslate"><span class="pre">str_interpolate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.configuration.html">darf.src.io.configuration module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.configuration.html#configuration-module">Configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.configuration.html#darf.src.io.configuration.ConfHandler"><code class="docutils literal notranslate"><span class="pre">ConfHandler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.directories.html">darf.src.io.directories module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.directories.html#directory-module">Directory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.directories.html#darf.src.io.directories.DirectoryHandler"><code class="docutils literal notranslate"><span class="pre">DirectoryHandler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.files.html">darf.src.io.files module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.files.html#files-module">files module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.files.html#darf.src.io.files.FileHandler"><code class="docutils literal notranslate"><span class="pre">FileHandler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.io_handler.html">darf.src.io.io_handler module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.io_handler.html#io-module">IO Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.io_handler.html#darf.src.io.io_handler.IOHandler"><code class="docutils literal notranslate"><span class="pre">IOHandler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.pickle_handler.html">darf.src.io.pickle_handler module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.pickle_handler.html#pickle-handler-module">Pickle handler module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.progress_bar.html">darf.src.io.progress_bar module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.progress_bar.html#progress-bar-module">progress bar module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.progress_bar.html#darf.src.io.progress_bar.Pb"><code class="docutils literal notranslate"><span class="pre">Pb</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.remote.html">darf.src.io.remote module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.remote.html#remote-module">Remote module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.io.remote.html#darf.src.io.remote.RemoteHandler"><code class="docutils literal notranslate"><span class="pre">RemoteHandler</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.io.html#module-darf.src.io">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.io.html#io-module">io Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.log.html">darf.src.log package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.log.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.log.logger.html">darf.src.log.logger module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.log.logger.html#logger-module">logger Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.log.logger.html#darf.src.log.logger.LogHandler"><code class="docutils literal notranslate"><span class="pre">LogHandler</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.log.html#module-darf.src.log">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.params.html">darf.src.params package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.params.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.params.param_handler.html">darf.src.params.param_handler module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_handler.html#paramhandler-module">paramHandler Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.params.param_wrapper.html">darf.src.params.param_wrapper module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#paramwrapper-module">paramWrapper Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.dataset"><code class="docutils literal notranslate"><span class="pre">dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.environment"><code class="docutils literal notranslate"><span class="pre">environment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.generic"><code class="docutils literal notranslate"><span class="pre">generic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.operation"><code class="docutils literal notranslate"><span class="pre">operation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.param_selector"><code class="docutils literal notranslate"><span class="pre">param_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.param_wrapper.html#darf.src.params.param_wrapper.plot_operation"><code class="docutils literal notranslate"><span class="pre">plot_operation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.params.parameters.html">darf.src.params.parameters module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.parameters.html#class-module">class module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.parameters.html#darf.src.params.parameters.CallableParam"><code class="docutils literal notranslate"><span class="pre">CallableParam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.parameters.html#darf.src.params.parameters.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.parameters.html#darf.src.params.parameters.Plot"><code class="docutils literal notranslate"><span class="pre">Plot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.params.parameters.html#darf.src.params.parameters.TypeSpecific"><code class="docutils literal notranslate"><span class="pre">TypeSpecific</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.params.html#module-darf.src.params">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.plot.html">darf.src.plot package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.plot.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot.functions.html">darf.src.plot.functions package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot.functions.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot.functions.html#module-darf.src.plot.functions">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.plot.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot.manager.html">darf.src.plot.manager module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot.manager.html#plotter-manager-module">plotter manager module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot.plotter.html">darf.src.plot.plotter module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot.plotter.html#plotter-module">plotter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot.plotter.html#darf.src.plot.plotter.Plotter"><code class="docutils literal notranslate"><span class="pre">Plotter</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.plot.html#module-darf.src.plot">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot.html#module-init">module __init__.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.plot_operations.html">darf.src.plot_operations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.plot_operations.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.axis.html">darf.src.plot_operations.axis module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.axis.html#axis-plot-operations">Axis plot operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.facetgrid.html">darf.src.plot_operations.facetgrid module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.facetgrid.html#facetgrid-plot-operations">Facetgrid plot operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.figure.html">darf.src.plot_operations.figure module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.figure.html#figure-plot-operations">Figure plot operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.legend.html">darf.src.plot_operations.legend module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.legend.html#legend-plot-operations">Legend plot operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.legend.html#darf.src.plot_operations.legend.legend_line"><code class="docutils literal notranslate"><span class="pre">legend_line()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.line.html">darf.src.plot_operations.line module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.line.html#line-plot-operations">Line plot operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.line.html#darf.src.plot_operations.line.aggregate"><code class="docutils literal notranslate"><span class="pre">aggregate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.plot_operations.operations.html">darf.src.plot_operations.operations module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.operations.html#plot-operations-module">Plot operations Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.plot_operations.operations.html#darf.src.plot_operations.operations.function_caller"><code class="docutils literal notranslate"><span class="pre">function_caller()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.plot_operations.html#module-darf.src.plot_operations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.util.html">darf.src.util package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.util.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.util.hash.html">darf.src.util.hash module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.util.hash.html#hash-module">Hash module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.util.hash.html#darf.src.util.hash.compute_hash"><code class="docutils literal notranslate"><span class="pre">compute_hash()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.util.helper.html">darf.src.util.helper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.util.strings.html">darf.src.util.strings module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.util.strings.html#strings-module">strings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="darf.src.util.strings.html#darf.src.util.strings.s"><code class="docutils literal notranslate"><span class="pre">s</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.util.html#module-darf.src.util">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.data_manager.html">darf.src.data_manager module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.data_manager.html#class-module">class module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="darf.src.operations_obj.html">darf.src.operations_obj module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.operations_obj.html#operations-obj-module">Operations obj Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="darf.src.operations_obj.html#darf.src.operations_obj.Operations"><code class="docutils literal notranslate"><span class="pre">Operations</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.operations_obj.html#darf.src.operations_obj.Operations.concat"><code class="docutils literal notranslate"><span class="pre">Operations.concat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="darf.src.operations_obj.html#darf.src.operations_obj.Operations.one"><code class="docutils literal notranslate"><span class="pre">Operations.one()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-darf.src">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-darf.src" title="Link to this heading"></a></h2>
+<p>Main load module</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="darf.pylint_plugins.pylint_decorator.html" class="btn btn-neutral float-left" title="darf.pylint_plugins.pylint_decorator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="darf.src.context_managers.html" class="btn btn-neutral float-right" title="darf.src.context_managers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright © 2025 Nokia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dataset &mdash; DARF 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataset Operations" href="DatasetOperations.html" />
+    <link rel="prev" title="Examples.FirstPlot module" href="Examples.FirstPlot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DARF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CLIusage.html">CLI Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIusage.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Customization.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Dataset</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loading-dataset">Loading dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetOperations.html">Dataset Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DatasetForking.html">Dataset Forking</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Plot.html">Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlotLevelCustomization.html">Plot level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FigureLevelCustomization.html">Figure level customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserDefinedFunctions.html">User Defined Plot Functions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DevelopmentGuidelines.html">Development Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">darf</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DARF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Dataset</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Dataset.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dataset">
+<h1>Dataset<a class="headerlink" href="#dataset" title="Link to this heading"></a></h1>
+<p>The dataset component is one of the foundamental components of <code class="docutils literal notranslate"><span class="pre">DARF</span></code>.
+Datasets can be loaded, manipulated, saved and given as an input to a plot function.</p>
+<p>Following there are the different documentation sections that explain all this components
+and the different possibilities given to the user.</p>
+<section id="loading-dataset">
+<h2>Loading dataset<a class="headerlink" href="#loading-dataset" title="Link to this heading"></a></h2>
+<p>A dataset can be loaded in different ways:</p>
+<ul class="simple">
+<li><p>Locally, when a file is available</p></li>
+<li><p>Remotly, when an ssh connection to a server can be opened to retrieve the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file</p></li>
+<li><p>As the outcome of an operation to another dataset. A loading operation in this sense
+differs from a normal manipulation because first a copy of the original dataset is created
+and then the operation is applied. Also this type of generation can take in consideration
+multiple datasets, for example during a join operation.</p></li>
+</ul>
+<p>Following the references to the <code class="docutils literal notranslate"><span class="pre">local</span></code> loaders:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="darf.src.data_loader.load_local.html"><span class="doc">darf.src.data_loader.load_local module</span></a></dt><dd><p>How to load a local <code class="docutils literal notranslate"><span class="pre">csv</span></code> file</p>
+</dd>
+</dl>
+<p>Following the references to the <code class="docutils literal notranslate"><span class="pre">remote</span></code> loaders:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="darf.src.data_loader.load_remote.html"><span class="doc">darf.src.data_loader.load_remote module</span></a></dt><dd><p>How to load a remote file on the local system through <code class="docutils literal notranslate"><span class="pre">ssh</span></code></p>
+</dd>
+</dl>
+<p>The methods that manipulates a dataset to create a new one
+are listed below:</p>
+<dl class="simple">
+<dt><a class="reference internal" href="darf.src.data_loader.load_dependent.html"><span class="doc">darf.src.data_loader.load_dependent module</span></a></dt><dd><p>Possibilities to manipulate one or more datasets to
+create a new one</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Examples.FirstPlot.html" class="btn btn-neutral float-left" title="Examples.FirstPlot module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DatasetOperations.html" class="btn btn-neutral float-right" title="Dataset Operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright © 2025 Nokia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
