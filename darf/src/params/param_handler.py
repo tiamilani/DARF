@@ -207,10 +207,10 @@ class ParamHandler:
                 args_to_eval = f"({self.evaluate(obj[s.param_action_args])}{coma})"
                 obj[s.param_action_args] = ast.literal_eval(args_to_eval)
                 return obj[s.param_action_args]
-            elif isinstance(obj[s.param_action_args], tuple):
+            if isinstance(obj[s.param_action_args], tuple):
                 return obj[s.param_action_args]
-            else:
-                raise ValueError(f"args must be a string or a tuple, not {type(obj[s.param_action_args])}")
+            raise ValueError("args must be a string or a tuple, not" \
+                             f"{type(obj[s.param_action_args])}")
         return ()
 
     def __get_kwargs(self, obj: Dict[str, str]) -> Dict:
@@ -246,7 +246,8 @@ class ParamHandler:
                 return ast.literal_eval(kwargs_to_eval)
             if isinstance(obj[s.param_action_kwargs], dict):
                 return obj[s.param_action_kwargs]
-            raise ValueError(f"kwargs must be a string or a dict, not {type(obj[s.param_action_kwargs])}")
+            raise ValueError("kwargs must be a string or a dict, not"\
+                             f"{type(obj[s.param_action_kwargs])}")
         return {}
 
     def define_object(self, obj: Dict[str, str]):

@@ -17,14 +17,15 @@ import re
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-tf.get_logger().setLevel('ERROR')
-tf.autograph.set_verbosity(1)
 
 from darf.src.io import PickleHandler as PkH
 from darf.src.io import FileHandler as FH
 from darf.src.decorators import data_loader, data_loaders
 from darf.src.data_loader import Base
 from darf.src.io.remote import RemoteHandler as RH
+
+tf.get_logger().setLevel('ERROR')
+tf.autograph.set_verbosity(1)
 
 @data_loader
 class CsvPkl(Base):

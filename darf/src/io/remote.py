@@ -16,14 +16,13 @@ The module loads the requested files locally in a path
 predefined or a custom path defined by the user.
 """
 
+from typing import Optional
+
 import os
-from pathlib import Path
 import paramiko
 from scp import SCPClient
 
 from darf.src.io.progress_bar import Pb as pb
-
-from typing import List, Optional
 
 class RemoteHandler:
     """RemoteHandler.
@@ -60,11 +59,6 @@ class RemoteHandler:
         self.__conn = None
 
         return
-        self.open_connection()
-        if not self.test_connection():
-            raise Exception("The connection is not active")
-
-        self.close_connection()
 
     @property
     def path(self) -> str:
@@ -132,7 +126,7 @@ class RemoteHandler:
         """
         # Use paramiko with the ssh config file
         ssh_config = paramiko.SSHConfig()
-        with open(os.path.expanduser(self.ssh_config_path)) as f:
+        with open(os.path.expanduser(self.ssh_config_path), 'r', encoding='utf-8') as f:
             ssh_config.parse(f)
 
         host_config = ssh_config.lookup(self.__host)
@@ -147,16 +141,18 @@ class RemoteHandler:
         # Connect to the remote host
         self.__conn.connect(host, port=port, username=user, key_filename=key_file)
 
-    def test_connection(self) -> None:
-        # Run a simple command to test the connection in self.__conn using paramiko
+    def test_connection(self) -> bool:
+        """test_connectio.
+
+        Run a simple command to test the connection in self.__conn using paramiko
+        """
         if self.__conn is None:
             return False
         try:
-            stdin, stdout, stderr = self.__conn.exec_command("ls")
+            _, stdout, _= self.__conn.exec_command("ls")
             if stdout.channel.recv_exit_status() == 0:
                 return True
-            else:
-                return False
+            return False
         except Exception as e:
             print(f"Connection test failed: {e}")
             raise e

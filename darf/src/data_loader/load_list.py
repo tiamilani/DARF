@@ -15,7 +15,7 @@ from typing import List
 
 import pandas as pd
 
-from darf.src.decorators import data_loader, data_loaders
+from darf.src.decorators import data_loader
 from darf.src.data_loader import Base
 from darf.src.io.directories import DirectoryHandler as DH
 from darf.src.io.files import FileHandler as FH
@@ -102,6 +102,6 @@ class CsvList(Base):
         print(files)
 
         dfs = [pd.read_csv(file) for file in files]
+        print(dfs)
 
-        raise Exception
-        return None
+        raise NotImplementedError

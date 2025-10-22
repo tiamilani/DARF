@@ -146,5 +146,24 @@ def rename_val_in_clm(df: pd.DataFrame,
 def replace_nan(df: pd.DataFrame,
                 new_val: Any = None,
                 **kwargs) -> pd.DataFrame:
-    df.fillna(new_val, inplace=True)
+    """replace_nan.
+
+    use pandas fillna to swap nan values with a different one.
+    Pandas relevant docs: (fillna)[https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html]
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe where to apply the swap
+    new_val: Any
+        New value to substitute NaN, default to None
+    kwargs:
+        kwargs to pass to fillna.
+
+    Returns
+    -------
+    pd.DataFrame
+        The new dataframe.
+    """
+    df.fillna(new_val, inplace=True, **kwargs)
     return df

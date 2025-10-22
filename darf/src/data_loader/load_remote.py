@@ -11,13 +11,13 @@ loadRemote module
 Use this module to manage a Remote loader.
 """
 
+from typing import Optional
+
 import pandas as pd
 
 from darf.src.decorators import data_loader
 from darf.src.data_loader import Base
 from darf.src.io.remote import RemoteHandler as RH
-
-from typing import Optional
 
 @data_loader
 class Remote(Base):

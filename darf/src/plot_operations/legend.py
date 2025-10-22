@@ -86,6 +86,26 @@ def legend_z_order(df: pd.DataFrame,
                    ax: mplt.axes.Axes,
                    ax_id: int = 0,
                    zorder: int = 10) -> mplt.axes.Axes:
+    """legend_z_order.
+
+    Function to change a legend z axis.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    ax : mplt.axes.Axes
+        The axis where to add the legend
+    ax_id: int
+        The axis id in case multiple axes are in the same figure
+    zorder: int
+        The Z ax value.
+
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis with the legend
+    """
     selected_ax = mplt.pyplot.gcf().axes[ax_id]
     selected_ax.get_legend().set_zorder(zorder)
     return ax
@@ -94,6 +114,24 @@ def legend_z_order(df: pd.DataFrame,
 def remove_legend(df: pd.DataFrame,
                   ax: mplt.axes.Axes,
                   ax_id: Optional[int] = None) -> mplt.axes.Axes:
+    """remove_legend.
+
+    Function to remove a legend from ax.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input data
+    ax : mplt.axes.Axes
+        The axis where to add the legend
+    ax_id: int
+        The axis id in case multiple axes are in the same figure
+
+    Returns
+    -------
+    mplt.axes.Axes
+        The axis without the legend
+    """
     if ax_id is None:
         for selected_ax in mplt.pyplot.gcf().axes:
             if selected_ax.get_legend() is not None:

@@ -13,9 +13,10 @@ All functions that can be applied to add lines to the plot
 
 from typing import Optional, List, Dict, Any
 
+import datetime
 import pandas as pd
 import matplotlib as mplt
-import datetime
+
 from darf.src.decorators import plot_op
 
 def aggregate(df: pd.DataFrame,
@@ -61,13 +62,13 @@ def aggregate(df: pd.DataFrame,
 
 @plot_op
 def vertical_line(df: pd.DataFrame,
-                  ax: mplt.axes.Axes,
+                  ax,
                   ax_id: int = 0,
                   from_clm: Optional[str] = None,
                   hue: Optional[str] = None,
                   hue_order: Optional[List[str]] = None,
                   data_agg: Optional[str] = None,
-                  **kwargs) -> mplt.axes.Axes:
+                  **kwargs):
     """vertical_line.
 
     Add a vertical line to the plot
@@ -86,7 +87,7 @@ def vertical_line(df: pd.DataFrame,
     """
     if from_clm is not None:
         if 'x' in kwargs:
-            raise ValueError("x is already provided in kwargs, aggregation and 'x' column cannot be used together")
+            raise ValueError("x is already provided in kwargs, aggregation and 'x' column cannot be used together") # pylint: disable=line-too-long
 
         x = df.copy()
         if hue is not None:
@@ -102,13 +103,13 @@ def vertical_line(df: pd.DataFrame,
 
 @plot_op
 def horizontal_line(df: pd.DataFrame,
-                    ax: mplt.axes.Axes,
+                    ax,
                     ax_id: int = 0,
                     from_clm: Optional[str] = None,
                     hue: Optional[str] = None,
                     hue_order: Optional[List[str]] = None,
                     data_agg: Optional[str] = None,
-                    **kwargs) -> mplt.axes.Axes:
+                    **kwargs):
     """horizontal_line.
 
     Add a horizontal line to the plot
@@ -137,7 +138,7 @@ def horizontal_line(df: pd.DataFrame,
     """
     if from_clm is not None:
         if 'y' in kwargs:
-            raise ValueError("y is already provided in kwargs, aggregation and 'y' column cannot be used together")
+            raise ValueError("y is already provided in kwargs, aggregation and 'y' column cannot be used together") # pylint: disable=line-too-long
 
         y = df.copy()
         if hue is not None:
@@ -159,8 +160,7 @@ def add_outage_line(df: pd.DataFrame,
                     anomalies_reference: Optional[str] = None,
                     ax_kwargs: Optional[dict] = None,
                     txt_flag: bool = True,
-                    txt_kwargs: Optional[Dict[str, Any]] = None,
-                    **kwargs) -> mplt.axes.Axes:
+                    txt_kwargs: Optional[Dict[str, Any]] = None) -> mplt.axes.Axes:
     """add_outage_line.
 
     Add an outage line to the plot
@@ -181,8 +181,6 @@ def add_outage_line(df: pd.DataFrame,
         flag to add the text to the line
     txt_kwargs: dict
         kwargs for the text
-    **kwargs :
-        kwargs applied to the axvline
 
     Returns
     -------
@@ -205,9 +203,9 @@ def add_outage_line(df: pd.DataFrame,
     if txt_kwargs is None:
         txt_kwargs = {}
 
-    for key in default_txt_kwargs.keys():
+    for key, item in default_txt_kwargs.items():
         if key not in txt_kwargs.keys():
-            txt_kwargs[key] = default_txt_kwargs[key]
+            txt_kwargs[key] = item
 
     top_y = selected_axes.get_ylim()[1]
     delta = txt_kwargs['delta']
@@ -259,14 +257,16 @@ def add_circle(df: pd.DataFrame,
     current_ax.add_patch(mplt.pyplot.Circle(*args, **kwargs))
     return ax
 
+# TODO df should not be a mandatory argument for plot operation, while AX it should be, move df to
+# kwargs
 @plot_op
 def add_ellipse(df: pd.DataFrame,
-               ax: mplt.axes.Axes,
-               *args,
-               ax_id: int = 0,
-               **kwargs) -> mplt.axes.Axes:
+                ax: mplt.axes.Axes,
+                *args,
+                ax_id: int = 0,
+                **kwargs) -> mplt.axes.Axes:
     """add_circle.
-    Add a circle to the plot
+    Add an ellipse to the plot
 
     Parameters
     ----------

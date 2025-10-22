@@ -11,16 +11,15 @@ Facetgrid plot operations
 Apply facetgrid functions
 """
 
-from typing import Optional, Dict, Tuple, List, Union, Any
+from typing import Optional, Dict, Tuple, List, Any
 
-import math
+from datetime import datetime
+
 import pandas as pd
 import matplotlib as mplt
-import matplotlib.patches as patches
 import seaborn as sns
 
 from matplotlib.path import Path
-from datetime import datetime
 from darf.src.decorators import plot_op
 
 @plot_op
@@ -435,8 +434,7 @@ def facet_add_grid(df: pd.DataFrame,
 def facet_add_title(df: pd.DataFrame,
                     facetgrid: sns.FacetGrid,
                     title: str = "Title",
-                    top_adjust: float = 0.9,
-                    **kwargs) -> sns.FacetGrid:
+                    top_adjust: float = 0.9) -> sns.FacetGrid:
     """facet_add_title.
 
     Add a title to the facetgrid figure
@@ -457,8 +455,8 @@ def facet_add_title(df: pd.DataFrame,
     sns.FacetGrid
         The facetgrid with the title added
     """
-    facetgrid.fig.subplots_adjust(top=top_adjust)
-    facetgrid.fig.suptitle(title)
+    facetgrid.figure.subplots_adjust(top=top_adjust)
+    facetgrid.figure.suptitle(title)
     return facetgrid
 
 @plot_op
@@ -533,7 +531,6 @@ def facet_add_patches(df: pd.DataFrame,
 
     for patch in patches:
         col_id = patch.get('col_id', None)
-        row_id = patch.get('row_id', None)
         verts = patch.get('verts', None)
         codes = patch.get('codes', None)
         pathpatch_kw = patch.get('PathPatch', None)

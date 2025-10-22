@@ -93,6 +93,7 @@ def main():
 
     if options.show_data is not None:
         data.show(options.show_data)
+        return 0
 
     logger("darf.main", "Execute plots")
     plot_man = PM(PH.apply_filter(pm, s.param_plot_type),

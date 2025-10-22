@@ -68,7 +68,7 @@ class Pb:
             bar
         """
         pbar.set_description_str(f"\033[0;32m✔️  {msg}\033[0m")
-        pbar.set_postfix_str("                                                             ", refresh=True)
+        pbar.set_postfix_str("                                                      ", refresh=True)
         pbar.clear()
         pbar.refresh()
         pbar.close()

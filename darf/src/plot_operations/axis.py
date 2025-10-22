@@ -92,11 +92,11 @@ def x_date_formatter(df: pd.DataFrame,
 def apply_set(df: pd.DataFrame,
               ax: mplt.axes.Axes,
               ax_id: Optional[int] = None,
-              *args, **kwargs) -> mplt.axes.Axes:
+              **kwargs) -> mplt.axes.Axes:
     """set.
 
     apply a generic `set` operatin to the ax matplotib object.
-    (relevant matplotlib docs)[https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html]
+    (matplotlib set docs)[https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html]
 
     Parameters
     ----------
@@ -104,6 +104,8 @@ def apply_set(df: pd.DataFrame,
         The input data, not used
     ax : mplt.axes.Axes
         The axis where to set the xlabel
+    ax_id: int
+        the id of the ax to manipuilate
     **kwargs : dict
         The kwargs to pass to the set method
 

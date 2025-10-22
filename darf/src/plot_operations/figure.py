@@ -11,11 +11,10 @@ Figure plot operations
 Adjust figure level elements
 """
 
-from typing import Optional, Dict, Tuple, List
+from typing import Optional, List
 
 import pandas as pd
 import matplotlib as mplt
-import matplotlib.dates as mdates
 
 from darf.src.decorators import plot_op
 

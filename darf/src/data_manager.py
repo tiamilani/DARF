@@ -13,7 +13,6 @@ Use this module to manage a class object.
 
 from typing import Any, Dict, List, Self, Optional
 
-import numpy as np
 import pandas
 
 from darf.src.params import ParamHandler as PH
@@ -148,7 +147,7 @@ class Dataset:
         Dict[str, Any]
             dictionary of dependencies or None
         """
-        if s.param_depends_on_key not in self.obj.keys() or \
+        if s.param_depends_on_key not in self.obj or \
                 self.obj[s.param_depends_on_key] is None:
             return None
 
@@ -436,6 +435,8 @@ class DatasetManager:
         """
         return list(self.data.keys())
 
+
+
     def show(self, df_request: Optional[List[str]] = None) -> None:
         """show_data.
 
@@ -445,6 +446,67 @@ class DatasetManager:
             list of keys to show
 
         """
+        def extract_intervals(df):
+            # sort to ensure chronological order
+            df = df.sort_values(['op_id', 'timestamp']).reset_index(drop=True)
+
+            results = []
+            for op, g in df.groupby('op_id', sort=False):
+                # create state column:
+                # 0 = normal, 1 = unstable (between 0.35 crossing -> 0.7 crossing)
+                # we'll detect transitions using threshold crossings
+                heights = g['Height'].values
+                times = g['timestamp'].values
+
+                state = 0
+                last_return_time = times[0] # time when system last returned to normal (crossed 0.7 upward)
+                unstable_start_time = None
+
+                for i in range(len(heights)):
+                    h = heights[i]
+                    t = times[i]
+
+                    if state == 0:
+                        # look for start of instability: height <= 0.35 (or crossing down to 0.35)
+                        if h <= 0.175:
+                            # instability begins at this timestamp
+                            unstable_start_time = t
+                            state = 1
+                    else:  # state == 1 (unstable)
+                        # look for return to normal: height >= 0.7
+                        if h >= 0.7:
+                            unstable_end_time = t
+                            # If we already had a last_return_time (previous instability ended),
+                            # compute elapsed minutes between that return and this new instability start.
+                            if last_return_time is not None and unstable_start_time is not None:
+                                # elapsed from last_return_time to current unstable_start_time
+                                elapsed_min = int((unstable_start_time - last_return_time) / pandas.Timedelta(minutes=1))
+                                results.append({
+                                    'op_id': op,
+                                    'start_time': last_return_time,    # last return -> start counting
+                                    'end_time': unstable_start_time,  # next instability start
+                                    'total_minutes': elapsed_min
+                                })
+                            # update last_return_time to this unstable_end_time (system now normal)
+                            last_return_time = unstable_end_time
+                            # reset unstable tracking
+                            unstable_start_time = None
+                            state = 0
+
+                # End of group's loop. Note: we do not emit partial intervals if they are incomplete.
+                if state == 0:
+                    unstable_start_time = times[-1]
+                    elapsed_min = int((unstable_start_time - last_return_time) / pandas.Timedelta(minutes=1))+1
+                    results.append({
+                        'op_id': op,
+                        'start_time': last_return_time,    # last return -> start counting
+                        'end_time': unstable_start_time,  # next instability start
+                        'total_minutes': elapsed_min
+                    })
+
+            result_df = pandas.DataFrame(results, columns=['op_id', 'start_time', 'end_time', 'total_minutes'])
+            return result_df
+
         df_request = [] if df_request is None else df_request
 
         if len(df_request) == 0:
@@ -460,27 +522,21 @@ class DatasetManager:
             print(f"Statistics: {self[key].describe()}")
             print("------------------------")
             print(f"{len(self[key]['op_id'].unique())} unique op_id")
-            # print(f"N sample with bad_p > 50%: {self[key].loc[self[key]['bad_p'] > 50.0].shape[0]}")
-            # print(f"Unique op_id: {np.array(self[key]['op_id'].unique())}")
-            raise Exception
+
+            inter_instability_df = extract_intervals(self[key])
+            print(inter_instability_df)
+            inter_instability_df.to_csv('inter_instability_time.csv', index=False)
             # df = self[key]
-            # df['bad'] = df['bad']/42842
-            # df = df.sort_values(by=['bad'], ascending=False)
-            # df.to_csv(f"bad_{key}.csv")
-            # l_low = 30.0
-            # l_high = 70.0
-            # df_bad_p_in_range = self[key].loc[(self[key]['bad_p'] >= l_low) & (self[key]['bad_p'] <= l_high)]
-            # # print(f"Data bad_p in ({l_low} and {l_high}): {df_bad_p_in_range[['op_id', 'timestamp', 'bad_p', 'Height']]}")
-            # tot_samples = self[key].shape[0]
-            # n_bad_p = df_bad_p_in_range.shape[0]
-            # print(f"Num of bad_p in ({l_low} and {l_high}): {n_bad_p}/{tot_samples}")
-            # print(f"Percentage of bad_p in ({l_low} and {l_high}): {n_bad_p*100.0/tot_samples:.2f}/100")
-            # print("------------------------")
-            # min_height = 0.75
-            # df_bad_p_min_height = df_bad_p_in_range.loc[df_bad_p_in_range['Height'] >= min_height]
-            # # print(f"Data bad_p in ({l_low} and {l_high}, min h {min_height}): {df_bad_p_min_height[['op_id', 'timestamp', 'bad_p', 'Height']]}")
-            # tot_samples = self[key].shape[0]
-            # n_bad_p = df_bad_p_min_height.shape[0]
-            # print(f"Num of bad_p in ({l_low} and {l_high}, min h {min_height}): {n_bad_p}/{tot_samples}")
-            # print(f"Percentage of bad_p in ({l_low} and {l_high}, min h {min_height}): {n_bad_p*100.0/tot_samples:.2f}/100")
-            # print("------------------------")
+            # low_conf_df = df[df['Height'] < 0.35]
+            # print(f"Low confidence data:\n{low_conf_df}")
+
+            # row_df = len(df)
+            # row_low_conf = len(low_conf_df)
+            # print(f"Percentage of low conf samples: {row_low_conf}/{row_df} -> {(row_low_conf*100)/row_df}")
+            # outage_count = low_conf_df.groupby('op_id').agg(
+            #     outage_count=('op_id', 'count')
+            # ).reset_index()
+
+            # outage_count['month_ratio'] = (outage_count['outage_count']/len(df[df['op_id'] == 2]))*100
+            # print(outage_count)
+            # print(outage_count.describe())

@@ -97,8 +97,7 @@ def add_timestamp(df: pd.DataFrame,
 def date_time_filter(df: pd.DataFrame,
                      clm: str = "",
                      start: str = "",
-                     end: str = "",
-                     **kwargs) -> pd.DataFrame:
+                     end: str = "") -> pd.DataFrame:
     """date_time_filter.
     Filter the dataframe based on a date time column.
 
@@ -112,8 +111,6 @@ def date_time_filter(df: pd.DataFrame,
         The start date time
     end : str
         The end date time
-    kwargs : Dict
-        Dictionary of keyword arguments
 
     Returns
     -------

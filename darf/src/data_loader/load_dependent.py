@@ -83,6 +83,10 @@ class Dependent(Base):
 
 @data_loader
 class Join(Base):
+    """Join.
+
+    Data loader class to merge other data sources.
+    """
 
     def sanity_check(self) -> bool:
         """sanity_check.
@@ -110,15 +114,18 @@ class Join(Base):
 
     def __call__(self, *args, **kwargs) -> pd.DataFrame:
         # check if the on parameter is in kwargs
-        df1 = list(self.value.values())[0]
-        df2 = list(self.value.values())[1]
+        df1 = list(self.value.values())[0].reset_index(drop=True)
+        df2 = list(self.value.values())[1].reset_index(drop=True)
+        print(df1)
+        print(df2)
         if 'on' in kwargs:
             on_param = kwargs.pop('on')
             unique_on_df2 = df2[on_param].unique()
             df1 = df1[df1[on_param].isin(unique_on_df2)]
             df1 = df1.reset_index(drop=True)
 
-            assert df1.shape[0] == df2.shape[0], "The two dataframes must have the same number of rows"
+            assert df1.shape[0] == df2.shape[0], \
+                f"df1 and df2 rows are different {df1.shape[0]} != {df2.shape[0]}"
 
             self.data = df1.copy()
             for clm in df2.columns:

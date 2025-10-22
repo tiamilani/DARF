@@ -11,7 +11,7 @@ math Module
 Contains operations relatives to math operations on dataframes
 """
 
-from typing import List
+from typing import List, Optional
 import numpy as np
 import pandas as pd
 
@@ -19,8 +19,8 @@ from darf.src.decorators import data_op
 
 @data_op
 def add_columns(df: pd.DataFrame,
-                  columns: List[str] = [],
-                  value: float = 0.0) -> pd.DataFrame:
+                columns: Optional[List[str]] = None,
+                value: float = 0.0) -> pd.DataFrame:
     """add_columns.
 
     Add the values to the columns.
@@ -29,8 +29,8 @@ def add_columns(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to add
+    columns : Optional[List[str]]
+        The columns to sum, default None
     value: float
         The value to add to the columns
 
@@ -39,6 +39,7 @@ def add_columns(df: pd.DataFrame,
     pd.DataFrame
         The DataFrame with the new column
     """
+    columns = [] if columns is None else columns
     df[columns] = df[columns] + value
     return df
 
@@ -68,7 +69,7 @@ def multiply_column(df: pd.DataFrame,
 
 @data_op
 def sum_columns(df: pd.DataFrame,
-                columns: List[str] = [],
+                columns: Optional[List[str]] = None,
                 new_clm: str = "sum") -> pd.DataFrame:
     """sum_columns.
 
@@ -78,8 +79,8 @@ def sum_columns(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to sum
+    columns : Optional[List[str]]
+        The columns to sum, default None
     new_clm : str
         The name of the new column
 
@@ -88,6 +89,7 @@ def sum_columns(df: pd.DataFrame,
     pd.DataFrame
         The DataFrame with the new column
     """
+    columns = [] if columns is None else columns
     df[new_clm] = df[columns].sum(axis=1)
     return df
 

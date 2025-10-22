@@ -15,8 +15,6 @@ from darf.src.decorators.decorators import plot
 @plot
 def anomalies_prob_heatmap(pvt_kwargs=None, htm_kwargs=None,
                            data: pd.DataFrame = None,
-                           date_formatter_format: Optional[str] = "%d-%b",
-                           hour_locator_kwargs: Optional[dict] = None,
                            **kwargs) -> mplt.axes.Axes:
     """anomalies_prob_heatmap.
 
@@ -142,10 +140,10 @@ def line_outages_alerts(*args, data: pd.DataFrame = None,
     if anomalies_reference is None:
         raise ValueError("Anomalies reference is required")
 
-    fig, axes = mplt.pyplot.subplots(2,1, gridspec_kw={'height_ratios': [8, 1]})
+    _, axes = mplt.pyplot.subplots(2,1, gridspec_kw={'height_ratios': [8, 1]})
 
     p = sns.lineplot(data=data, ax=axes[0], *args, **kwargs)
-    prob = sns.lineplot(data=data, x=kwargs['x'], y=kwargs['y'],
+    _ = sns.lineplot(data=data, x=kwargs['x'], y=kwargs['y'],
                         ax=axes[1], hue=stat_clm, hue_order=[heatmap_prop],
                         palette=['red'])
     axes[1].set_ylabel('Outage prob.')
@@ -187,8 +185,8 @@ def line_outages_alerts_distances(*args, data: pd.DataFrame = None,
         dst_kwargs['palette'] = palette
 
     p = sns.lineplot(data=data, ax=axes[0], *args, **kpi_kwargs, **kwargs)
-    prob = sns.lineplot(data=data, ax=axes[1], *args, **prb_kwargs, **kwargs)
-    dst = sns.lineplot(data=data, ax=axes[2], *args, **dst_kwargs, **kwargs)
+    _ = sns.lineplot(data=data, ax=axes[1], *args, **prb_kwargs, **kwargs)
+    _ = sns.lineplot(data=data, ax=axes[2], *args, **dst_kwargs, **kwargs)
     return p
 
 @plot
@@ -233,5 +231,5 @@ def line_outage_dst(*args, data: pd.DataFrame = None,
         dst_kwargs['palette'] = palette
 
     prob = sns.lineplot(data=data, ax=axes[0], *args, **prb_kwargs, **kwargs)
-    dst = sns.lineplot(data=data, ax=axes[1], *args, **dst_kwargs, **kwargs)
+    _ = sns.lineplot(data=data, ax=axes[1], *args, **dst_kwargs, **kwargs)
     return prob

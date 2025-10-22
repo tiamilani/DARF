@@ -19,7 +19,7 @@ from darf.src.decorators import data_op
 
 @data_op
 def groupby(df: pd.DataFrame,
-            columns: List[str] = [],
+            columns: Optional[List[str]] = None,
             apply: Optional[str] = None,
             apply_kwargs: Optional[Dict[str, Any]] = None,
             pivot: bool = True,
@@ -32,8 +32,8 @@ def groupby(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
+    columns : Optional[List[str]]
+        The columns to group by, default to No columns []
     apply : str
         The function to apply to the group
     apply_kwargs : Optional[Dict[str, Any]]
@@ -45,6 +45,7 @@ def groupby(df: pd.DataFrame,
         a pivot version of the input data where for each group there
         is the number of rows in the group
     """
+    columns = [] if columns is None else columns
     tmp_df = df.groupby(columns)
     if apply_kwargs is None:
         apply_kwargs = {}
@@ -77,7 +78,7 @@ def groupby(df: pd.DataFrame,
 
 @data_op
 def groupby_count(df: pd.DataFrame,
-                  columns: List[str] = [],
+                  columns: Optional[List[str]] = None,
                   count_unique: str = "count_clm",
                   pivot: bool = True) -> pd.DataFrame:
     """grouby_count.
@@ -89,8 +90,8 @@ def groupby_count(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
+    columns : Optional[List[str]]
+        The columns to group by, default to No columns []
     count_unique : str
         The column where to count the number of unique values
 
@@ -100,6 +101,7 @@ def groupby_count(df: pd.DataFrame,
         a pivot version of the input data where for each group there
         is the count of unique values in the column `count_unique`
     """
+    columns = [] if columns is None else columns
     labels = df[count_unique].unique()
     tmp_df = df.groupby(columns)[count_unique].value_counts().unstack().fillna(0).reset_index()
     # pivot tmp_df
@@ -110,7 +112,7 @@ def groupby_count(df: pd.DataFrame,
 
 @data_op
 def groupby_avg(df: pd.DataFrame,
-                columns: List[str] = [],
+                columns: Optional[List[str]] = None,
                 avg_clm: str = "avg_clm",
                 pivot: bool = True) -> pd.DataFrame:
     """groupby_avg.
@@ -121,8 +123,8 @@ def groupby_avg(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
+    columns : Optional[List[str]]
+        The columns to group by, default to No columns []
     avg_clm : str
         The column where to calculate the average
 
@@ -132,6 +134,7 @@ def groupby_avg(df: pd.DataFrame,
         a pivot version of the input data where for each group there
         is the average of the column `avg_clm`
     """
+    columns = [] if columns is None else columns
     tmp_df = df.groupby(columns)[avg_clm].mean().reset_index()
     # pivot tmp_df
     if pivot:
@@ -140,9 +143,7 @@ def groupby_avg(df: pd.DataFrame,
     return tmp_df
 
 @data_op
-def groupby_cm(df: pd.DataFrame,
-                columns: List[str] = [],
-                pivot: bool = True) -> pd.DataFrame:
+def groupby_cm(df: pd.DataFrame) -> pd.DataFrame:
     """groupby_cm.
 
     Group by the columns and calculate the confusion matrix
@@ -151,8 +152,6 @@ def groupby_cm(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
 
     Returns
     -------
@@ -171,28 +170,27 @@ def groupby_cm(df: pd.DataFrame,
 
     for exp in df[exp_clm].unique():
         tmp_df = df[df[exp_clm] == exp]
-        for eval in tmp_df[eval_clm].unique():
-            tmp_tmp_df = tmp_df[tmp_df[eval_clm] == eval]
+        for evaluation in tmp_df[eval_clm].unique():
+            tmp_tmp_df = tmp_df[tmp_df[eval_clm] == evaluation]
             total_expected_p = tmp_tmp_df[tmp_tmp_df[statistic_clm] == exp_p][val_clm].sum()
             total_expected_n = tmp_tmp_df[tmp_tmp_df[statistic_clm] == exp_n][val_clm].sum()
-            total_TP = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "TP"][val_clm].sum()
-            total_TN = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "TN"][val_clm].sum()
-            total_FP = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "FP"][val_clm].sum()
-            total_FN = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "FN"][val_clm].sum()
+            total_tp = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "TP"][val_clm].sum()
+            total_tn = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "TN"][val_clm].sum()
+            total_fp = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "FP"][val_clm].sum()
+            total_fn = tmp_tmp_df[tmp_tmp_df[statistic_clm] == "FN"][val_clm].sum()
             cm_df = pd.concat([cm_df, pd.DataFrame({
                 exp_clm: [exp, exp, exp, exp],
-                eval_clm: [eval, eval, eval, eval],
+                eval_clm: [evaluation, evaluation, evaluation, evaluation],
                 statistic_clm: ["TP", "TN", "FP", "FN"],
-                val_clm: [total_TP/total_expected_p,
-                          total_TN/total_expected_n,
-                          total_FP/total_expected_n,
-                          total_FN/total_expected_p]
+                val_clm: [total_tp/total_expected_p,
+                          total_tn/total_expected_n,
+                          total_fp/total_expected_n,
+                          total_fn/total_expected_p]
             })], ignore_index=True)
     return cm_df
 
 @data_op
-def groupby_cm_avg_std(df: pd.DataFrame,
-                pivot: bool = True) -> pd.DataFrame:
+def groupby_cm_avg_std(df: pd.DataFrame) -> pd.DataFrame:
     """groupby_cm_avg_std.
 
     Group by the columns and calculate the confusion matrix
@@ -201,8 +199,6 @@ def groupby_cm_avg_std(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
 
     Returns
     -------
@@ -221,9 +217,7 @@ def groupby_cm_avg_std(df: pd.DataFrame,
 
 @data_op
 def groupby_by_day(df: pd.DataFrame,
-                     columns: List[str] = [],
-                     value_clm: str = "value",
-                     pivot: bool = True,
+                     columns: Optional[List[str]] = None,
                      reset_index: bool = True) -> pd.DataFrame:
     """groupby_by_day.
 
@@ -234,12 +228,8 @@ def groupby_by_day(df: pd.DataFrame,
     ----------
     df : pd.DataFrame
         The input data
-    columns : List[str]
-        The columns to group by
-    value_clm : str
-        The column where to compute the sum
-    pivot : bool
-        If True, pivot the dataframe
+    columns : Optional[List[str]]
+        The columns to group by, default to None with translates to no columns
     reset_index : bool
         If True, reset the index of the dataframe
 
@@ -249,6 +239,7 @@ def groupby_by_day(df: pd.DataFrame,
         a pivot version of the input data where for each group there
         is the sum of the value_clm for each day
     """
+    columns = [] if columns is None else columns
     df = df.groupby(pd.Grouper(key=columns[0], axis=0,
                           freq='1D', sort=True)).sum()
     if reset_index:

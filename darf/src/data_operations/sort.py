@@ -19,26 +19,27 @@ from darf.src.decorators import data_op
 
 @data_op
 def sort(df: pd.DataFrame,
-        clm: List[str] = [],
-       **kwargs) -> pd.DataFrame:
-        """
-        sort.
-        Sort a DataFrame by the specified columns.
+		 clm: Optional[List[str]] = None,
+       	 **kwargs) -> pd.DataFrame:
+	"""sort.
 
-        Parameters
-        ----------
-        df : pd.DataFrame
-                The input data
-        clm : List[str], optional
-                List of column names to sort by
-        kwargs : Dict
-                Additional keyword arguments to pass to pd.DataFrame.sort_values
+	Sort a DataFrame by the specified columns.
 
-        Returns
-        -------
-        pd.DataFrame
-                The sorted DataFrame
-        """
-        if not clm:
-                return df
-        return df.sort_values(by=clm, **kwargs)
+	Parameters
+	----------
+	df : pd.DataFrame
+		The input data
+	clm : List[str], optional
+		List of column names to sort by
+	kwargs : Dict
+		Additional keyword arguments to pass to pd.DataFrame.sort_values
+
+	Returns
+	-------
+	pd.DataFrame
+		The sorted DataFrame
+	"""
+	clm = [] if clm is None else clm
+	if not clm:
+		return df
+	return df.sort_values(by=clm, **kwargs)

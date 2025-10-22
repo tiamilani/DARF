@@ -68,4 +68,3 @@ def conf(params: Par, **kwargs):
         pbar.update(1)
 
     pb.success_close(pbar, "Environment loaded")
-

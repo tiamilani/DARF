@@ -377,17 +377,19 @@ def dst_aggregate(df: pd.DataFrame,
         If the technique is not implemented
     """
     values = df[cm_id].values
+    agg_df = None
     match technique:
         case 'box_maximum':
-            return df.assign(**{new_clm: box_maximum(values)})
+            agg_df = df.assign(**{new_clm: box_maximum(values)})
         case 'std':
-            return df.assign(**{new_clm: pd.Series(values).mean()+pd.Series(values).std()})
+            agg_df = df.assign(**{new_clm: pd.Series(values).mean()+pd.Series(values).std()})
         case 'double_std':
-            return df.assign(**{new_clm: pd.Series(values).mean()+2*pd.Series(values).std()})
+            agg_df = df.assign(**{new_clm: pd.Series(values).mean()+2*pd.Series(values).std()})
         case 'mean':
-            return df.assign(**{new_clm: pd.Series(values).mean()})
+            agg_df = df.assign(**{new_clm: pd.Series(values).mean()})
         case _:
             raise ValueError(f"Technique {technique} not implemented")
+    return agg_df
 
 @data_op
 def merge_clm(df: pd.DataFrame,
@@ -427,6 +429,22 @@ def merge_clm(df: pd.DataFrame,
 @data_op
 def add_cm_types(df: pd.DataFrame,
                   stat_clm: str = "stat_clm") -> pd.DataFrame:
+    """add_cm_types.
+
+    Add confusion matrix types
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe used for the computation
+    stat_clm: str
+        Name of the column containing the statistics
+
+    Returns
+    -------
+    pd.DataFrame
+        The updated dataframe.
+    """
     labels = ["Normal", "Outage"]
     predicted = []
     expected = []
@@ -446,7 +464,7 @@ def add_cm_types(df: pd.DataFrame,
                 predicted.append(labels[1])
                 expected.append(labels[0])
             case _:
-                raise Exception(f"Unknown stat {stat}")
+                raise ValueError(f"Unknown stat {stat}")
     df["Predicted label"] = predicted
     df["Expected label"] = expected
     df.drop(columns=[stat_clm], inplace=True)
